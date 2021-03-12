@@ -1,4 +1,6 @@
-body {
+* {
+  padding:  0;
+  box-sizing: border-box;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +12,20 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+#theme:checked ~ .App {
+  filter: invert(1);
+}
+
+.App {
+  max-width: 100%;
+  min-height: 100vh;
+  background: white;
+}
+
+.main {
+  max-width: 1000px;
+  width: 100%;
+  margin: auto;
 }
