@@ -93,7 +93,10 @@ const authController ={
     },
     logout: async(req,res) => {
         try{
-
+            res.clearCookie('refreshToken',{
+                path: '/socialapi/refresh_token'
+            })
+            return  res.json({msg:'Logged Out Successfully'})
         } catch (err) {
             return res.status(500).json({msg: err.message}) 
         }
