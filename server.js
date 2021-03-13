@@ -9,9 +9,7 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieparser());
 
-app.get('/',(req,res)=>{
-    res.json({msg:'Hello'})
-});
+app.use('/socialapi', require('./routes/authRoute'));
 
 const URI = process.env.MONGO_URL;
 mongoose.connect(URI, {
