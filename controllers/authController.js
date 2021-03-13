@@ -36,8 +36,8 @@ const authController ={
             const newUser = new Users({
                 fullname, username,email, password: passwordHash, gender
             });
-            const access_token = createAccessToken({is: newUser._id});
-            const refresh_token = refreshAccessToken({is: newUser._id});
+            const access_token = createAccessToken({id: newUser._id});
+            const refresh_token = refreshAccessToken({id: newUser._id});
             res.cookie('refreshtoken',refresh_token,{
                 httpOnly: true,
                 path:'/socialapi/refresh_token',
@@ -103,7 +103,33 @@ const authController ={
     },
     generateAccessToken: async(req,res) => {
         try{
+            const rf_token = req.cookies.refreshtoken;
+            if(!rf_token){
+                return res.status(400).json({
+                    msg: 'Please Login first.'
+                })
+            }
+            jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, async(err,result) => {
+                if(err){
+                    return res.status(400).json({
+                        msg: 'Please Login first.'
+                    })
+                }
+                const user = await Users.findById(result.id).select("-password")
+                .populate("followers following","-password");
+                if(!user){
+                    return res.status(400).json({
+                        msg: 'This does not  exist.'
+                    })
+                }
+                const access_token = createAccessToken({id: result.id})
 
+                res.json({
+                    access_token,
+                    user
+                })
+            })
+            res.json({rf_token})
         } catch (err) {
             return res.status(500).json({msg: err.message}) 
         }
