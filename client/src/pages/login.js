@@ -8,6 +8,8 @@ const Login = () => {
     const [userData, setUserData] = useState(initialState);
     const {email,password} = userData;
 
+    const [typePass, setTypePass] = useState();
+
     const dispatch = useDispatch();
 
     const handleChangeInput = e => {
@@ -35,7 +37,11 @@ const Login = () => {
                             </div> 
                             <div className="form-group">
                                 <label htmlFor="inputPass">Your password</label>
-                                <input name="password" id="inputPass" className="form-control" placeholder="******" type="password" onChange={handleChangeInput} value={password}/>
+                                <div className="pass">
+                                    <input name="password" id="inputPass" className="form-control" placeholder="******" type={typePass?"text":"password"} onChange={handleChangeInput} value={password}/>
+                                    <small onClick={()=>setTypePass(!typePass)}><i className={typePass?"fa fa-eye-slash":"fa fa-eye"} /></small>
+                                </div>
+                                
                             </div>
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary btn-block" disabled={email&&password?false:true}> Login  </button>
