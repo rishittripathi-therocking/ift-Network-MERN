@@ -1,13 +1,23 @@
 import React,{useState} from 'react';
 import {Link} from 'react-router-dom';
+import {login} from '../redux/actions/authAction';
+import {useDispatch} from 'react-redux';
 
 const Login = () => {
     const initialState = {email:'',password:''};
     const [userData, setUserData] = useState(initialState);
     const {email,password} = userData;
+
+    const dispatch = useDispatch();
+
     const handleChangeInput = e => {
         const {name,value} = e.target;
         setUserData({...userData,[name]:value}); 
+    }
+    const handleSubmit = e => {
+        e.preventDefault();
+        console.log(userData);
+        dispatch(login(userData))
     }
     return (
         <div className="container auth_page" >
@@ -16,7 +26,7 @@ const Login = () => {
                 <article className="card-body">
                     <Link to="/register" className="float-right btn btn-outline-primary text-danger">Register Now</Link>
                     <h4 className="card-title mb-4 mt-1">Sign in</h4>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label htmlFor="emailInput">Your email</label>
                             <input name="email" id="emailInput" className="form-control" placeholder="Email" type="email" onChange={handleChangeInput} value={email}/>
