@@ -19,7 +19,7 @@ export const refreshToken = () => async (dispatch) => {
         dispatch({type: GLOBALTPES.ALERT ,payload: {loading:true}});
         try{
             const res = await postDataAPI('refresh_token');
-            dispatch({type:GLOBALTPES.AUTH ,payload: {token:res.data.access_token, user:res.data.user}});
+            dispatch({type:GLOBALTPES.AUTH ,payload: {token:res.data.rf_token, user:res.data.user}});
             dispatch({type: GLOBALTPES.ALERT ,payload: {}});
         } catch(err) {
             dispatch({type:GLOBALTPES.ALERT ,payload: {error: err.response.data.msg}});
