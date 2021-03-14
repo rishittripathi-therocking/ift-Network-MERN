@@ -62,6 +62,17 @@ const authController ={
     login: async(req,res) => {
         try{
             const {email, password} = req.body;
+            if(password.length < 8){
+                return res.status(400).json({
+                    msg: "Passwords can't be less length of 8 characters"
+                })
+            }
+            var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+            if(re.test(password)==false){
+                return res.status(400).json({
+                    msg: "Passwords must contain at least a symbol, upper and lower case letters and a number"
+                })
+            }
             const user = await Users.findOne({email})
             .populate("followers following","-password");
             if(!user){
