@@ -6,18 +6,18 @@ import {toast} from 'react-toastify';
 const NotifyWarning = ({message}) => {toast.error(message); return "" }
 const NotifySuccess = ({message}) => {toast.success(message); return "" }
 
-const Notify = () => {
+const Alert = () => {
     const state = useSelector(state => state);
-    const {auth, notify} = state;
+    const {auth, alert} = state;
     
     
     return (
         <div>
-            {notify.loading && <Loading />}
-            {notify.error && <NotifyWarning message={notify.error}/>}
-            {notify.success && <NotifySuccess message={notify.success} />}
+            {alert.loading && <Loading />}
+            {alert.error && <NotifyWarning message={alert.error}/>}
+            {alert.success && <NotifySuccess message={alert.success} />}
         </div>
     )
 }
 
-export default Notify;
+export default Alert;

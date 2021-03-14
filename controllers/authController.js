@@ -38,9 +38,10 @@ const authController ={
             });
             const access_token = createAccessToken({id: newUser._id});
             const refresh_token = refreshAccessToken({id: newUser._id});
+            
             res.cookie('refreshtoken',refresh_token,{
                 httpOnly: true,
-                path:'/socialapi/refresh_token',
+                path:"/socialapi/refresh_token",
                 maxAge: 30*24*60*60*1000
             });
 
@@ -62,17 +63,6 @@ const authController ={
     login: async(req,res) => {
         try{
             const {email, password} = req.body;
-            if(password.length < 8){
-                return res.status(400).json({
-                    msg: "Passwords can't be less length of 8 characters"
-                })
-            }
-            var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-            if(re.test(password)==false){
-                return res.status(400).json({
-                    msg: "Passwords must contain at least a symbol, upper and lower case letters and a number"
-                })
-            }
             const user = await Users.findOne({email})
             .populate("followers following","-password");
             if(!user){
@@ -82,12 +72,12 @@ const authController ={
             if(!isMatch){
                 return res.status(400).json({msg: 'Username or Password Does Not matched'});
             }
-            const access_token = createAccessToken({is: user._id});
-            const refresh_token = refreshAccessToken({is: user._id});
+            const access_token = createAccessToken({id: user._id});
+            const refresh_token = refreshAccessToken({id: user._id});
             res.cookie('refreshtoken',refresh_token,{
                 httpOnly: true,
-                path:'/socialapi/refresh_token',
-                maxAge: 30*24*60*60*1000
+                path:"/socialapi/refresh_token",
+                maxAge: 30*24*60*60*1000,
             });
             res.json({
                 msg: 'User Logged in Succesfully',
@@ -104,8 +94,8 @@ const authController ={
     },
     logout: async(req,res) => {
         try{
-            res.clearCookie('refreshToken',{
-                path: '/socialapi/refresh_token'
+            res.clearCookie('refreshtoken',{
+                path: "/socialapi/refresh_token"
             })
             return  res.json({msg:'Logged Out Successfully'})
         } catch (err) {

@@ -5,9 +5,9 @@ const cors = require('cors');
 const cookieparser = require('cookie-parser');
 
 const app = express();
+app.use(cookieparser());
 app.use(express.json());
 app.use(cors());
-app.use(cookieparser());
 
 app.use('/socialapi', require('./routes/authRoute'));
 
