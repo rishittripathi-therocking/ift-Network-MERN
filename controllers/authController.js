@@ -125,11 +125,12 @@ const authController ={
                 const access_token = createAccessToken({id: result.id})
                 
                 res.json({
+                    rf_token,
                     access_token,
                     user
                 })
             })
-            res.json({rf_token});
+            
         } catch (err) {
             return res.status(500).json({msg: err.message}) 
         }

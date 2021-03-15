@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     },
     avatar: {
         type: String,
-        default: 'https:.res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png'
+        default: 'http://www.pngall.com/wp-content/uploads/5/Profile-Avatar-PNG-Free-Download.png'
     },
     role: {
         type: String,

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux'; 
 import {logout} from '../../redux/actions/authAction';
@@ -23,7 +23,7 @@ const Header = () => {
 
     return (
         <div>
-            <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark justify-content-between align-middle">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between align-middle">
                 <Link className="navbar-brand" to='/'>
                 <img src={logo} width="30" height="30" className="d-inline-block align-top p-1" alt="" />
                     IFT-NETWORK
@@ -47,7 +47,7 @@ const Header = () => {
                                 <Avatar src={auth.user.avatar}/>
                             </span>
                             <div className="dropdown-menu " aria-labelledby="navbarDropdown">
-                                <Link className="dropdown-item" to={`/profile${auth.user._id}`}>Profile</Link>
+                                <Link className="dropdown-item" to={`/profile/${auth.user._id}`}>Profile</Link>
                                 <label htmlFor="theme" className="dropdown-item" onClick={() =>dispatch({type: GLOBALTPES.THEME, payload: !theme})}>{theme ?'Light Mode':'Dark Mode'}</label>
                                 <div className="dropdown-divider"></div>
                                 <Link className="dropdown-item" to="/" onClick={() => dispatch(logout())}>Logout</Link>
