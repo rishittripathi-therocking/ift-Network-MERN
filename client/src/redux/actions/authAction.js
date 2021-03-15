@@ -1,5 +1,6 @@
 import {postDataAPI} from '../../utils/fetchData';
 import {GLOBALTPES} from './globalType';
+import valid from '../../utils/valid';
 
 
 export const login = (data) => async (dispatch) => {
@@ -28,10 +29,16 @@ export const refreshToken = () => async (dispatch) => {
 }
 
 export const register = (data) => async (dispatch) => {
+    const check = valid(data);
+    if(check.errLength > 0){
+        return dispatch({type: GLOBALTPES.ALERT, payload:check.errMessage});
+    }
     try{
-        console.log(data);
-        //dispatch({type:GLOBALTPES.ALERT ,payload: {loading: true}});
-        //const res = await postDataAPI('register',data);
+        dispatch({type:GLOBALTPES.ALERT ,payload: {loading: true}});
+        const res = await postDataAPI('register',data);
+        dispatch({type:GLOBALTPES.AUTH ,payload: {token:res.data.access_token, user:res.data.user}});
+        localStorage.setItem("firstLogin",true)
+        dispatch({type:GLOBALTPES.ALERT ,payload: {success:res.data.msg}});
     }
     catch (err) {
         dispatch({type:GLOBALTPES.ALERT ,payload: {error: err.response.data.msg}});
