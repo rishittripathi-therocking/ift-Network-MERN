@@ -26,3 +26,14 @@ export const refreshToken = () => async (dispatch) => {
         }
     }
 }
+
+export const register = (data) => async (dispatch) => {
+    try{
+        console.log(data);
+        //dispatch({type:GLOBALTPES.ALERT ,payload: {loading: true}});
+        //const res = await postDataAPI('register',data);
+    }
+    catch (err) {
+        dispatch({type:GLOBALTPES.ALERT ,payload: {error: err.response.data.msg}});
+    }
+}

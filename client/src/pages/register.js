@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import {useHistory ,Link} from 'react-router-dom';
+import {register} from '../redux/actions/authAction';
 
 
 const Register = () => {
@@ -26,6 +27,7 @@ const Register = () => {
     }
     const handleSubmit = e => {
         e.preventDefault();
+        dispatch(register(userData));
     }
     return (
         <React.Fragment>
@@ -52,7 +54,7 @@ const Register = () => {
                                     <div className="input-group-prepend">
                                         <div className="input-group-text">@</div>
                                     </div>
-                                    <input name="username" id="username" className="form-control" placeholder="User Name" type="text" onChange={handleChangeInput} value={username}/>
+                                    <input name="username" id="username" className="form-control" placeholder="User Name" type="text" onChange={handleChangeInput} value={username.toLowerCase().replace(/ /g, "")}/>
                                 </div>
                             </div> 
                             <div className="form-group">
