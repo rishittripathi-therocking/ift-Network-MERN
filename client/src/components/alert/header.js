@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Link, userLocation} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux'; 
+import {logout} from '../../redux/actions/authAction';
 
 const Header = () => {
     const navLinks=[
@@ -7,30 +9,38 @@ const Header = () => {
         {label: 'Message', icon: 'near_me', path:'/message'},
         {label: 'Discover', icon: 'explore', path:'/discover'},
         {label: 'Notify', icon: 'favorite', path:'/notify'}
-    ]
+    ];
+
+    const {auth} = useSelector(state => state);
+    const dispatch = useDispatch();
+
     return (
         <div>
             <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark justify-content-between align-middle">
                 <Link className="navbar-brand" to='/'>IFT-NETWORK</Link>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+                
 
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <div className="menu">
                     
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                        </li>
+                    <ul className="navbar-nav flex-row">
+                        {
+                            navLinks.map((link,index)=>(
+                                <li className="nav-item active" key={index}>
+                                    <Link className="nav-link" to={link.path}>
+                                        <span className="material-icons">{link.icon}</span>
+                                    </Link>
+                                </li>
+                            ))
+                        }
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                User
-                            </a>
-                            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a className="dropdown-item" href="#">Profile</a>
-                                <a className="dropdown-item" href="#">Dark Mode</a>
+                            </span>
+                            <div className="dropdown-menu " aria-labelledby="navbarDropdown">
+                                <Link className="dropdown-item" to={'/profile'}>Profile</Link>
+                                <Link className="dropdown-item" to='/'>Dark Mode</Link>
                                 <div className="dropdown-divider"></div>
-                                <a className="dropdown-item" href="#">Something else here</a>
+                                <Link className="dropdown-item" to="/" onClick={() => dispatch(logout())}>Logout</Link>
                             </div>
                         </li>
                     </ul>
