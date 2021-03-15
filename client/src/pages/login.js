@@ -32,13 +32,23 @@ const Login = () => {
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
                                 <label htmlFor="emailInput">Your email</label>
-                                <input name="email" id="emailInput" className="form-control" placeholder="Email" type="email" onChange={handleChangeInput} value={email}/>
+                                <div className="input-group mb-2">
+                                    <div className="input-group-prepend">
+                                        <div className="input-group-text"><i className="fa fa-envelope" /></div>
+                                    </div>
+                                    <input name="email" id="emailInput" className="form-control" placeholder="Email" type="email" onChange={handleChangeInput} value={email}/>
+                                </div>
                             </div> 
                             <div className="form-group">
                                 <label htmlFor="inputPass">Your password</label>
                                 <div className="pass">
-                                    <input name="password" id="inputPass" className="form-control" placeholder="******" type={typePass?"text":"password"} onChange={handleChangeInput} value={password}/>
-                                    <small onClick={()=>setTypePass(!typePass)}><i className={typePass?"fa fa-eye-slash":"fa fa-eye"} /></small>
+                                    <div className="input-group mb-2">
+                                        <div className="input-group-prepend">
+                                            <div className="input-group-text"><i className="fa fa-lock" /></div>
+                                        </div>
+                                        <input name="password" id="inputPass" className="form-control" placeholder="******" type={typePass?"text":"password"} onChange={handleChangeInput} value={password}/>
+                                        <small onClick={()=>setTypePass(!typePass)}><i className={typePass?"fa fa-eye-slash":"fa fa-eye"} /></small>
+                                    </div>
                                 </div>
                                 
                             </div>
