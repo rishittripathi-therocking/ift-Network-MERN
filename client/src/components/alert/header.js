@@ -28,12 +28,15 @@ const Header = () => {
     }
 
     useEffect(()=>{
-        if(search && auth.token){
+        if(search){
             getDataAPI(`search?username=${search}`,auth.token)
-            .then(res => setUsers(res.data.users)).
-            catch(err => {
+            .then(res => setUsers(res.data.users))
+            .catch(err => {
                 dispatch({type: GLOBALTPES.ALERT, payload:{error: err.response.data.msg}})
             })
+        }
+        else{
+            setUsers([])
         }
     },[search,auth.token,dispatch])
 
@@ -60,28 +63,26 @@ const Header = () => {
                             <div className="input-group-text"><i className="fa fa-search" /></div>
                         </div>
                         <input className="form-control mr-sm-2" aria-label="Search" onChange={handleChange} id="search" type="search" placeholder="Search" value={search}/>
-                        <div className="input-group-append" style={{opacity: users.length === 0 ? 0 : 1}} onClick={handleClose}>
-                            <div className="input-group-text close-search" >&times;</div>
-                        </div>
+                        
                     </div>
-                    <div className="users">
+                    
+                </form>
+                <div className="users">
                         {
-                            users.map((user,index) => (
-                                <Link key={index} to={`/profile/${user._id}`}>
+                            search && users.map((user,index) => (
+                                <Link key={index} to={`/profile/${user._id}`} onClick={handleClose} style={{textDecoration: 'inherit' ,color: '#000'}} >
                                     <UserCard user={user} border='border'/>
                                 </Link>
                             ))
                         }
-                    </div>
-                </form>
-
+                </div>
                 <div className="menu">
                     
                     <ul className="navbar-nav flex-row">
                         {
                             navLinks.map((link,index)=>(
                                 <li className={`nav-item px-2  ${isActive(link.path)}`}  key={index}>
-                                    <Link className="nav-link" to={link.path}>
+                                    <Link className="nav-link" to={link.path} >
                                         <span className="material-icons">{link.icon}</span>
                                     </Link>
                                 </li>

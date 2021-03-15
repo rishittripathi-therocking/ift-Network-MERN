@@ -1,5 +1,5 @@
 * {
-  padding:  0;
+  padding:0;
   box-sizing: border-box;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -9,10 +9,10 @@
   -moz-osx-font-smoothing: grayscale;
   
 }
-
-body::-webkit-scrollbar {
-  display:none;
+body {
+  overflow: hidden;
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -33,7 +33,7 @@ code {
 }
 
 .main {
-  max-width: 1000px;
+  max-width: 1400px;
   width: 100%;
   margin: auto;
 }
@@ -65,17 +65,18 @@ code {
   position: sticky;
   top:0;
   left:0;
+  bottom: 0;
+  right:0;
   z-index: 2;
   box-shadow: 0 0 10px #fff;
 }
 
 .header .navbar {
   width: 100%;
-  height: 100%;
 }
 
 .header .menu li {
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 .header .menu li.active {
@@ -105,14 +106,56 @@ code {
 
 .header .users {
   position: absolute;
-  width:30%;
+  width:100%;
   min-width: 100px;
   background: #fafafa;
   top: 100%;
+  padding-right: 2%;
   overflow: auto;
   margin-top: 3px; 
 }
 
+@media(max-width: 768px){
+  .header .menu{
+    position: fixed;
+    width: 100%;
+    left:0;
+    bottom: 0;
+    box-shadow: 0 0 10px #ddd;
+    z-index: 2;
+  }
+  .header .menu .navbar-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .header .menu .dropdown-menu {
+    bottom: 100%;
+    top: auto;
+  }
+  .header .users {
+    position: absolute;
+    width:95%;
+    overflow: hidden;
+    min-width: 100px;
+    background: #fafafa;
+    top: 100%;
+    padding-right: 2%;
+    overflow: auto;
+    margin-top: 3px; 
+  }
 
+  .header .form-inline {
+    width: 100%;
+  }
+  .header .material-icons {
+    color: #000;
+  }
+  .header .navbar-brand {
+    margin: auto;
+    font-size: 1rem;
+  }
+
+}
 
 @import url("./styles/auth.css");
