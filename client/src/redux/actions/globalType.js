@@ -1,4 +1,5 @@
 export const GLOBALTPES = {
     AUTH: 'AUTH',
-    ALERT: 'ALERT'
+    ALERT: 'ALERT',
+    THEME: 'THEME'
 }
