@@ -4,6 +4,7 @@ import PageRender from './PageRender';
 import Login from './pages/login';
 import Home from './pages/home';
 import Alert from './components/alert/Alert';
+import Header from './components/alert/header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useSelector, useDispatch} from 'react-redux';
@@ -33,7 +34,8 @@ function App() {
       <input type="checkbox" id="theme" />
       <div className="App">
         <div className="main">
-          <Route exact path='/' component={auth.token ? Home :Login} />
+          {auth.token && <Header />}
+          <Route exact path='/' component={auth.token ? Home : Login} />
           <Route exact path='/:page' component={PageRender} />
           <Route exact path='/:page/:id' component={PageRender} />
         </div>
