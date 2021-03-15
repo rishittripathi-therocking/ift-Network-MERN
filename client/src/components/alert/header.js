@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux'; 
 import {logout} from '../../redux/actions/authAction';
@@ -14,6 +14,8 @@ const Header = () => {
         {label: 'Notify', icon: 'favorite', path:'/notify'}
     ];
 
+    const [search, setSearch] = useState('');
+
     const {auth, theme} = useSelector(state => state);
     const dispatch = useDispatch();
     const {pathname} = useLocation();
@@ -21,14 +23,30 @@ const Header = () => {
         if(pn === pathname) return 'active';
     }
 
+    const handleChange = (e) => {
+        
+        setSearch(e.target.value.toLowerCase().replace(/ /g,''))
+    }
+
     return (
-        <div>
+        <div className='header bg-dark'>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between align-middle">
                 <Link className="navbar-brand" to='/'>
-                <img src={logo} width="30" height="30" className="d-inline-block align-top p-1" alt="" />
+                    <img src={logo} width="30" height="30" className="d-inline-block align-top p-1" alt="" />
                     IFT-NETWORK
                 </Link>
                 
+                <form className="form-inline">
+                    <div className="input-group " >
+                        <div className="input-group-prepend">
+                            <div className="input-group-text"><i className="fa fa-search" /></div>
+                        </div>
+                        <input className="form-control mr-sm-2" aria-label="Search" onChange={handleChange} id="search" type="search" placeholder="Search" value={search}/>
+                        <div class="input-group-append">
+                            <div class="input-group-text close-search" id="basic-addon2">&times;</div>
+                        </div>
+                    </div>
+                </form>
 
                 <div className="menu">
                     
@@ -44,7 +62,7 @@ const Header = () => {
                         }
                         <li className="nav-item dropdown">
                             <span className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                                <Avatar src={auth.user.avatar}/>
+                                <Avatar src={auth.user.avatar} size='medium-avatar'/>
                             </span>
                             <div className="dropdown-menu " aria-labelledby="navbarDropdown">
                                 <Link className="dropdown-item" to={`/profile/${auth.user._id}`}>Profile</Link>
