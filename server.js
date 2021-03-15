@@ -10,6 +10,7 @@ app.use(cookieparser());
 app.use(cors());
 
 app.use('/socialapi', require('./routes/authRoute'));
+app.use('/socialapi', require('./routes/userRoute'));
 
 const URI = process.env.MONGO_URL;
 mongoose.connect(URI, {
