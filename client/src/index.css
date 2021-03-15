@@ -103,6 +103,16 @@ code {
   color: crimson;
 }
 
+.header .users {
+  position: absolute;
+  width:30%;
+  min-width: 100px;
+  background: #fafafa;
+  top: 100%;
+  overflow: auto;
+  margin-top: 3px; 
+}
+
 
 
 @import url("./styles/auth.css");

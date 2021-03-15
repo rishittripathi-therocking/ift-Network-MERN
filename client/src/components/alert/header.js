@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux'; 
 import {logout} from '../../redux/actions/authAction';
 import logo from '../../images/icon-web-01.png';
 import {GLOBALTPES} from '../../redux/actions/globalType';
 import Avatar from '../Avatar';
+import {getDataAPI} from '../../utils/fetchData';
+import UserCard from '../usercard';
+
 
 const Header = () => {
     const navLinks=[
@@ -15,6 +18,7 @@ const Header = () => {
     ];
 
     const [search, setSearch] = useState('');
+    const [users, setUsers] = useState([]);
 
     const {auth, theme} = useSelector(state => state);
     const dispatch = useDispatch();
@@ -23,9 +27,23 @@ const Header = () => {
         if(pn === pathname) return 'active';
     }
 
+    useEffect(()=>{
+        if(search && auth.token){
+            getDataAPI(`search?username=${search}`,auth.token)
+            .then(res => setUsers(res.data.users)).
+            catch(err => {
+                dispatch({type: GLOBALTPES.ALERT, payload:{error: err.response.data.msg}})
+            })
+        }
+    },[search,auth.token,dispatch])
+
     const handleChange = (e) => {
-        
         setSearch(e.target.value.toLowerCase().replace(/ /g,''))
+    }
+
+    const handleClose = () => {
+        setSearch('');
+        setUsers([]);
     }
 
     return (
@@ -42,9 +60,18 @@ const Header = () => {
                             <div className="input-group-text"><i className="fa fa-search" /></div>
                         </div>
                         <input className="form-control mr-sm-2" aria-label="Search" onChange={handleChange} id="search" type="search" placeholder="Search" value={search}/>
-                        <div class="input-group-append">
-                            <div class="input-group-text close-search" id="basic-addon2">&times;</div>
+                        <div className="input-group-append" style={{opacity: users.length === 0 ? 0 : 1}} onClick={handleClose}>
+                            <div className="input-group-text close-search" >&times;</div>
                         </div>
+                    </div>
+                    <div className="users">
+                        {
+                            users.map((user,index) => (
+                                <Link key={index} to={`/profile/${user._id}`}>
+                                    <UserCard user={user} border='border'/>
+                                </Link>
+                            ))
+                        }
                     </div>
                 </form>
 
