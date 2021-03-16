@@ -5,7 +5,8 @@ import {imageUpload} from '../../utils/imageUpload';
 export const PROFILE_TYPES = {
     LOADING: 'LOADING',
     GET_USER: 'GET_USER',
-    FOLLOW: 'FOLLOW'
+    FOLLOW: 'FOLLOW',
+    UNFOLLOW: 'UNFOLLOW'
 }
 
 export const getProfileUsers = ({users,id,auth}) => async(dispatch)=> {
@@ -54,4 +55,11 @@ export const follow = ({users,user,auth}) => async(dispatch) => {
     const newUser = {...user,followers: [...user.followers, auth.user]};
     dispatch({type: PROFILE_TYPES.FOLLOW, payload: newUser});
     dispatch({type: GLOBALTYPES.AUTH, payload: {...auth,user: {...auth.user, following: [...auth.user.following, newUser]}}});
+}
+
+export const unfollow = ({users,user,auth}) => async(dispatch) => {
+    const newUser = {...user,followers: user.followers.filter(item => item._id !== auth.user._id)};
+    
+    dispatch({type: PROFILE_TYPES.UNFOLLOW, payload: newUser});
+    dispatch({type: GLOBALTYPES.AUTH, payload: {...auth,user: {...auth.user, following: auth.user.following.filter(item => item._id !== newUser._id )}}});
 }
