@@ -36,7 +36,7 @@ const Info = () => {
                             <div className="info_content_title">
                                 <h2>{user.username}</h2>
                                 {
-                                    user._id === auth.user._id ? <button className="button button-3 button-3d icon-cog" style={{outline:'none'}} onClick={() => setOnEdit(true)}><i className="fa fa-cog"></i>Setting</button>: <FollowButton />
+                                    user._id === auth.user._id ? <button className="button button-3 button-3d icon-cog" style={{outline:'none'}} onClick={() => setOnEdit(true)}><i className="fa fa-cog"></i>Setting</button>: <FollowButton user={user}/>
                                 }
                                 
                             </div>

@@ -3,7 +3,7 @@ import {Link, useLocation} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux'; 
 import {logout} from '../../redux/actions/authAction';
 import logo from '../../images/icon-web-01.png';
-import {GLOBALTPES} from '../../redux/actions/globalType';
+import {GLOBALTYPES} from '../../redux/actions/globalType';
 import Avatar from '../Avatar';
 import {getDataAPI} from '../../utils/fetchData';
 import UserCard from '../usercard'; 
@@ -38,8 +38,8 @@ const Header = () => {
             setUsers(res.data.users);
         }
         catch(err) {
-            dispatch({type: GLOBALTPES.ALERT, payload:{error: err.response.data.msg}});
-            dispatch({type:GLOBALTPES.ALERT ,payload: {}});
+            dispatch({type: GLOBALTYPES.ALERT, payload:{error: err.response.data.msg}});
+            dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
         }
     }
 
@@ -104,7 +104,7 @@ const Header = () => {
                             </span>
                             <div className="dropdown-menu " aria-labelledby="navbarDropdown">
                                 <Link className="dropdown-item" to={`/profile/${auth.user._id}`}>Profile</Link>
-                                <label htmlFor="theme" className="dropdown-item" onClick={() =>dispatch({type: GLOBALTPES.THEME, payload: !theme})}>{theme ?'Light Mode':'Dark Mode'}</label>
+                                <label htmlFor="theme" className="dropdown-item" onClick={() =>dispatch({type: GLOBALTYPES.THEME, payload: !theme})}>{theme ?'Light Mode':'Dark Mode'}</label>
                                 <div className="dropdown-divider"></div>
                                 <Link className="dropdown-item" to="/" onClick={() => dispatch(logout())}>Logout</Link>
                             </div>

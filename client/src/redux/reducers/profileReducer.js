@@ -19,6 +19,11 @@ const profileReducer =(state=initial,action) => {
                 ...state,
                 users: [...state.users,action.payload.user]
             };
+        case PROFILE_TYPES.FOLLOW:
+            return {
+                ...state,
+                users: state.users.map(user => (user._id === action.payload._id ? action.payload: user))
+            };
         default:
             return state;
     }

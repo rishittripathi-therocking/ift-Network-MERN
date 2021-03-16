@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {checkImage} from '../../utils/imageUpload';
-import {GLOBALTPES} from '../../redux/actions/globalType';
+import {GLOBALTYPES} from '../../redux/actions/globalType';
 import {updaProfileUser} from '../../redux/actions/profileAction';
 
 const EditProfile = ({setOnEdit}) => {
@@ -24,7 +24,7 @@ const EditProfile = ({setOnEdit}) => {
     const cahngeAvatar = (e) => {
         const file = e.target.files[0];
         const err = checkImage(file);
-        if(err) return dispatch({type:GLOBALTPES.ALERT , payload: {error:err}});
+        if(err) return dispatch({type:GLOBALTYPES.ALERT , payload: {error:err}});
         setAvatar(file);
     }
 
