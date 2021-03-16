@@ -19,6 +19,7 @@ export const getProfileUsers = ({users,id,auth}) => async(dispatch)=> {
 
         } catch(err) {
             dispatch({type: GLOBALTPES.ALERT, payload: {error: err.response.data.msg}});
+            dispatch({type:GLOBALTPES.ALERT ,payload: {}});
         }
     }
     
@@ -38,10 +39,12 @@ export const updaProfileUser = ({userData, avatar,auth}) => async(dispatch) => {
         if(avatar) media = await imageUpload([avatar]);
         const res= await patchDataAPI("user",{...userData, avatar: avatar ? media[0].url : auth.user.avatar}, auth.token);
         dispatch({type:GLOBALTPES.AUTH, payload: {...auth,user: {...auth.user,...userData, avatar: avatar? media[0].url: auth.user.avatar}}});
-        dispatch({type: GLOBALTPES.ALERT, payload: {success: res.data.msg}})
+        dispatch({type: GLOBALTPES.ALERT, payload: {success: res.data.msg}});
+        dispatch({type: GLOBALTPES.ALERT, payload: {}})
 
     } catch(err) {
         dispatch({type: GLOBALTPES.ALERT, payload: {error: err.response.data.msg}});
+        dispatch({type:GLOBALTPES.ALERT ,payload: {}});
     }
 
 }

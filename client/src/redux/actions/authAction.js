@@ -10,6 +10,7 @@ export const login = (data) => async (dispatch) => {
         dispatch({type:GLOBALTPES.AUTH ,payload: {token:res.data.access_token, user:res.data.user}});
         localStorage.setItem("firstLogin",true)
         dispatch({type:GLOBALTPES.ALERT ,payload: {success:res.data.msg}});
+        dispatch({type:GLOBALTPES.ALERT ,payload: {}});
     } catch(err) {
         dispatch({type:GLOBALTPES.ALERT ,payload: {error: err.response.data.msg}});
     }
@@ -39,9 +40,11 @@ export const register = (data) => async (dispatch) => {
         dispatch({type:GLOBALTPES.AUTH ,payload: {token:res.data.access_token, user:res.data.user}});
         localStorage.setItem("firstLogin",true)
         dispatch({type:GLOBALTPES.ALERT ,payload: {success:res.data.msg}});
+        dispatch({type:GLOBALTPES.ALERT ,payload: {}});
     }
     catch (err) {
         dispatch({type:GLOBALTPES.ALERT ,payload: {error: err.response.data.msg}});
+        dispatch({type:GLOBALTPES.ALERT ,payload: {}});
     }
 }
 
@@ -53,5 +56,6 @@ export const logout = () => async(dispatch) => {
     }
     catch(err){
         dispatch({type:GLOBALTPES.ALERT ,payload: {error: err.response.data.msg}});
+        dispatch({type:GLOBALTPES.ALERT ,payload: {}});
     }
 }

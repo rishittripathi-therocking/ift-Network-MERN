@@ -38,7 +38,8 @@ const Header = () => {
             setUsers(res.data.users);
         }
         catch(err) {
-            dispatch({type: GLOBALTPES.ALERT, payload:{error: err.response.data.msg}})
+            dispatch({type: GLOBALTPES.ALERT, payload:{error: err.response.data.msg}});
+            dispatch({type:GLOBALTPES.ALERT ,payload: {}});
         }
     }
 
