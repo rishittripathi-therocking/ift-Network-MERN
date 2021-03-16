@@ -15,7 +15,9 @@ const Info = () => {
             setUserData([auth.user]);
         }
         else{
-               dispatch(getProfileUsers({users:profile.users, id,auth}));
+            dispatch(getProfileUsers({users:profile.users, id,auth}));
+            const newData = profile.users.filter(user => user._id === id);
+            setUserData(newData);
         }
     },[id,auth, dispatch, profile.users]) 
 

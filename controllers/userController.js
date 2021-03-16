@@ -12,11 +12,11 @@ const userController = {
     },
     getUser: async(req,res) => {
         try{
-            const user = await (await Users.findById(req.params.id)).isSelected('-password');
+            const user = await Users.findById(req.params.id).select('-password');
             if(!user) {
                 return res.status(400).json({msg: "User Does Not Exits"});
             }
-            res.json({user});
+            return res.status(200).json({user});
         } catch(err) {
             return res.status(500).json({msg: err.message});
         }

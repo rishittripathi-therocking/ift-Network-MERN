@@ -27,21 +27,18 @@ const Header = () => {
         if(pn === pathname) return 'active';
     }
 
-    useEffect(()=>{
-        if(search){
-            getDataAPI(`search?username=${search}`,auth.token)
-            .then(res => {setUsers(res.data.users)})
-            .catch(err => {
-                dispatch({type: GLOBALTPES.ALERT, payload:{error: err.response.data.msg}})
-            })
-        }
-        else{
-            setUsers([])
-        }
-    },[search,auth.token,dispatch])
+    
 
-    const handleChange = (e) => {
-        setSearch(e.target.value.toLowerCase().replace(/ /g,''))
+    const handleChange = async(e) => {
+        setSearch(e.target.value.toLowerCase().replace(/ /g,''));
+        if(!search) return;
+        try {
+            const res = await getDataAPI(`search?username=${search}`,auth.token);
+            setUsers(res.data.users);
+        }
+        catch(err) {
+            dispatch({type: GLOBALTPES.ALERT, payload:{error: err.response.data.msg}})
+        }
     }
 
     /*const handleSearch = async(e) => {
