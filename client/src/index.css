@@ -38,6 +38,13 @@ code {
   margin: auto;
 }
 
+.large-avatar {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .big-avatar {
   width: 50px;
   height: 50px;
@@ -115,6 +122,8 @@ code {
   margin-top: 3px; 
 }
 
+
+
 @media(max-width: 768px){
   .header .menu{
     position: fixed;
@@ -159,3 +168,4 @@ code {
 }
 
 @import url("./styles/auth.css");
+@import url("./styles/profile.css");

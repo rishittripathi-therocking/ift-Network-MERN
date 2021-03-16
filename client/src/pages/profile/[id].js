@@ -1,9 +1,12 @@
 import React from 'react';
+import Info from '../../components/profile/Info';
+import Posts from '../../components/profile/Posts';
 
 const Profile = () => {
     return (
-        <div>
-            <h1>Profile</h1>
+        <div className="profile">
+            <Info />
+            <Posts />
         </div>
     )
 }

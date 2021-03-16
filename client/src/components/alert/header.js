@@ -19,7 +19,6 @@ const Header = () => {
 
     const [search, setSearch] = useState('');
     const [users, setUsers] = useState([]);
-    const [load,setLoad] = useState(false);
 
     const {auth, theme} = useSelector(state => state);
     const dispatch = useDispatch();

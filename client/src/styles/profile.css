@@ -1,0 +1,149 @@
+.button {
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    background: none;
+    cursor: pointer;
+    padding: 25px 80px;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    outline: none;
+    position: relative;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+  .button:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    outline: none;
+  }
+  
+  /* Button 3 */
+  .button-3 {
+    background: #e07e07;
+    color: #fff;
+  }
+  .button-3:hover {
+    background: #ec9f3f;
+  }
+  .button-3:active {
+    background: #e07e07;
+    top: 2px;
+  }
+  .button-3>.fa {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    font-size: 140%;
+    width: 60px;
+  }
+  .button-3>.fa:before {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
+  
+  /* Button 3d */
+  .button-3d {
+    padding: 25px 60px 25px 120px;
+    border-radius: 10px;
+    outline: none;
+  }
+  .button-3d>.fa {
+    background: #ddd;
+    color: #fcad26;
+    z-index: 2;
+    outline: none;
+    border-radius: 10px 0 0 10px;
+  }
+  .button-3d:after {
+    width: 20px;
+    height: 20px;
+    background: #ddd;
+    z-index: 1;
+    left: 55px;
+    top: 50%;
+    margin: -10px 0 0 -10px;
+    outline: none;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .button-3d:active:before {
+    color: #f58500;
+  }
+  .button-3d:active {
+    top: 0;
+  }
+  .button-3d:active:after {
+    left: 60px;
+  }
+
+  .info {
+      width: 100%;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px 10px;
+  }
+
+  .info_container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+  }
+  .info_content {
+      min-width: 250px;
+      max-width: 500px;
+      width: 100%;
+      flex: 1;
+      opacity: 0.7;
+      margin: 0 15px;
+  }
+
+  .info_content_title {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+  }
+
+  .info_content_title h2 {
+    font-size: 2.7rem;
+    font-weight: 400;
+    transform: translateY(4px);
+    flex: 3;
+  }
+
+  .info_content_title button {
+    flex: 1;
+  }
+
+  .info_content .userName {
+      padding-top: 10px;
+  }
+
+  .info_container .follow_btn {
+    color: #3691e7; 
+    cursor: pointer;
+
+  }
+
+  .info_container .follow_btn span:hover {
+    color: #1f0bd8;
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
