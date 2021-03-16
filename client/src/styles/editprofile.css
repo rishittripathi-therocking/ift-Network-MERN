@@ -183,5 +183,9 @@ input[type=number] {
   cursor: pointer;
 }
 
+select {
+  font-family: 'FontAwesome', 'sans-serif';
+}
+
 
 

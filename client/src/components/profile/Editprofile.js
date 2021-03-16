@@ -14,7 +14,7 @@ const EditProfile = ({setOnEdit}) => {
         gender: ''
     }
     const [userData, setUserData] = useState(initialState);
-    const {fullname,mobile,address,website,story} = userData;
+    const {fullname,mobile,address,website,story, gender} = userData;
 
     const [avatar, setAvatar] = useState('');
     const {auth} = useSelector(state => state);
@@ -106,19 +106,14 @@ const EditProfile = ({setOnEdit}) => {
                         {story.length}/200
                     </small>
                 </div>
-                <div className="form-group justify-content-between row mx-0 mb-2">
-                    <div className="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="male" name="gender" className="custom-control-input" value="male" defaultChecked onChange={handleInput}/>
-                        <label className="custom-control-label" htmlFor="male">Male</label>
-                    </div>
-                    <div className="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="female" name="gender" className="custom-control-input" value="female" onChange={handleInput}/>
-                        <label className="custom-control-label" htmlFor="female">Female</label>
-                    </div>
-                    <div className="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="other" name="gender" className="custom-control-input" value="other" onChange={handleInput}/>
-                        <label className="custom-control-label" htmlFor="other">Others</label>
-                    </div>
+                
+                <label htmlFor="gender">Gender</label>
+                <div className="input-group-prepend px-0 mb-4">
+                    <select name="gender" id="gender" className="custom-select text-capitalize" onChange={handleInput} value={gender}>
+                        <option value="male"> Male</option>
+                        <option value="female"> Female</option>
+                        <option value="other"> Other</option>
+                    </select>
                 </div>
                 <div className="pt-3" style={{position: 'relative', left:'25%'}}>
                     <button type="submit" className="button button-4 button-4a icon-arrow-right" style={{outline: 'none'}}><i className="fa fa-arrow-right"></i>Save</button>
@@ -127,5 +122,5 @@ const EditProfile = ({setOnEdit}) => {
         </div>
     )
 }
-
+ 
 export default EditProfile;
