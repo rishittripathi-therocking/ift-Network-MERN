@@ -8,7 +8,8 @@ const Profile = () => {
     const {profile} = useSelector(state => state);
     return (
         <div className="profile">
-            {profile.loading ? <img src={LoadIcon} alt="loading"/> :<Info />}
+            
+            {profile.loading ? <img className={'d-block mx-auto my-4'} src={LoadIcon} alt="loading"/> :<Info />}
             <Posts />
         </div>
     )

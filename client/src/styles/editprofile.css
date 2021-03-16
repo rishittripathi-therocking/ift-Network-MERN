@@ -1,0 +1,187 @@
+
+  
+  .close-container {
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }
+  
+  .leftright {
+    height: 4px;
+    width: 50px;
+    position: absolute;
+    margin-top: 24px;
+    background-color: #f4a259;
+    border-radius: 2px;
+    transform: rotate(45deg);
+    transition: all 0.3s ease-in;
+  }
+  
+  .rightleft {
+    height: 4px;
+    width: 50px;
+    position: absolute;
+    margin-top: 24px;
+    background-color: #f4a259;
+    border-radius: 2px;
+    transform: rotate(-45deg);
+    transition: all 0.3s ease-in;
+  }
+  
+  .close {
+    color: #fff;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 0.6em;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease-in;
+    opacity: 0;
+  }
+  
+  .close {
+    margin: 60px 0 0 5px;
+    position: absolute;
+  }
+  
+  .close-container:hover .leftright {
+    transform: rotate(-45deg);
+    background-color: #f25c66;
+  }
+  
+  .close-container:hover .rightleft {
+    transform: rotate(45deg);
+    background-color: #f25c66;
+  }
+  
+  .close-container:hover label {
+    opacity: 1;
+  }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Button 4 */
+.button-4 {
+  border-radius: 50px;
+  border: 4px solid #ddd;
+  color: rgb(15, 203, 228);
+  overflow: hidden;
+}
+
+.button-4:hover {
+  background: #1983da;
+  color: #ddd;
+}
+.button-4>.fa {
+  position: absolute;
+  align-items: center;
+  height: 100%;
+  font-size: 125%;
+  line-height: 3.5;
+  color: #ddd;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+/* Button 4a */
+.button-4a>.fa {
+  left: 130%;
+  top: 0;
+}
+.button-4a:hover>.fa {
+  left: 80%;
+  top: 2%;
+}
+
+.edit_profile::-webkit-scrollbar {
+  display: none;
+}
+
+.edit_profile {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+
+.edit_profile {
+  position:fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100vh;
+  background: #0008;
+  z-index:9;
+  overflow: auto;
+
+}
+
+.edit_profile form {
+  max-width: 450px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+}
+
+.edit_profile .info_avatar {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 50%;
+  position: relative;
+  margin: 15px auto;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.edit_profile .info_avatar img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.edit_profile .info_avatar span {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  text-align: center;
+  color: rgb(243, 134, 9);
+  transition: 0.3s ease-in-out;
+  background: #0008;
+}
+
+.edit_profile .info_avatar:hover span {
+  bottom: -9%;
+}
+
+.edit_profile .info_avatar #file_up{
+  position:absolute;
+  top: 0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  opacity:0;
+}
+
+::-webkit-file-upload-button {
+  cursor: pointer;
+}
+
+
+

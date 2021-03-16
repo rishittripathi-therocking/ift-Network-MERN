@@ -16,7 +16,7 @@ const userController = {
             if(!user) {
                 return res.status(400).json({msg: "User Does Not Exits"});
             }
-            return res.status(200).json({user});
+            res.json({user});
         } catch(err) {
             return res.status(500).json({msg: err.message});
         }
