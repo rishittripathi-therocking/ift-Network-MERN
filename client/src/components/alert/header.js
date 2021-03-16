@@ -6,7 +6,7 @@ import logo from '../../images/icon-web-01.png';
 import {GLOBALTPES} from '../../redux/actions/globalType';
 import Avatar from '../Avatar';
 import {getDataAPI} from '../../utils/fetchData';
-import UserCard from '../usercard';
+import UserCard from '../usercard'; 
 
 
 const Header = () => {
@@ -19,6 +19,7 @@ const Header = () => {
 
     const [search, setSearch] = useState('');
     const [users, setUsers] = useState([]);
+    const [load,setLoad] = useState(false);
 
     const {auth, theme} = useSelector(state => state);
     const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const Header = () => {
     useEffect(()=>{
         if(search){
             getDataAPI(`search?username=${search}`,auth.token)
-            .then(res => setUsers(res.data.users))
+            .then(res => {setUsers(res.data.users)})
             .catch(err => {
                 dispatch({type: GLOBALTPES.ALERT, payload:{error: err.response.data.msg}})
             })
@@ -43,6 +44,17 @@ const Header = () => {
     const handleChange = (e) => {
         setSearch(e.target.value.toLowerCase().replace(/ /g,''))
     }
+
+    /*const handleSearch = async(e) => {
+        e.preventDefault();
+        if(!search) return;
+        try {
+            const res = await getDataAPI(`search?username=${search}`,auth.token);
+            setUsers(res.data.users)
+        } catch(err) {
+            dispatch({type: GLOBALTPES.ALERT, payload:{error: err.response.data.msg}})
+        }
+    }*/
 
     const handleClose = () => {
         setSearch('');
@@ -57,13 +69,12 @@ const Header = () => {
                     IFT-NETWORK
                 </Link>
                 
-                <form className="form-inline">
+                <form className="form-inline" >
                     <div className="input-group " >
                         <div className="input-group-prepend">
                             <div className="input-group-text"><i className="fa fa-search" /></div>
                         </div>
                         <input className="form-control mr-sm-2" aria-label="Search" onChange={handleChange} id="search" type="search" placeholder="Search" value={search}/>
-                        
                     </div>
                     
                 </form>
