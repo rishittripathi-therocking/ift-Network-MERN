@@ -48,9 +48,9 @@ const Info = () => {
                                    {user.following.length} Following
                                </span>
                             </div>
-                            <h6 className="userName">{user.fullname} {user.mobile}</h6>
+                            <h6 className="userName">{user.fullname} <span style={{color: 'crimson'}} className="pl-2">{user.mobile}</span></h6>
                             <p className="m-0">{user.address}</p>
-                            <h6>{user.email}</h6>
+                            <h6 className="mt-1 ml-0 mb-1 mr-0">{user.email}</h6>
                             <a href={user.website} target="_blank" rel="noreferrer">
                                 {user.website}
                             </a>
