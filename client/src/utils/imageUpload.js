@@ -7,3 +7,23 @@ export const checkImage = (file) => {
         err = "Image can only be of format png/jpeg";
     return err;
 }
+
+export const imageUpload = async(images) => {
+    let imageArr = [];
+    for(const item of images) {
+        const formData = new FormData();
+        formData.append("file",item);
+        formData.append("upload_preset","bm3rnt5m")
+        formData.append("cloud_name","dbmzgvytx")
+
+        const res = await fetch("https://api.cloudinary.com/v1_1/dbmzgvytx/image/upload",{
+            method: 'POST',
+            body: formData
+        })
+
+        const data = await res.json();
+        imageArr.push({public_id: data.public_id, url:data.secure_url})
+        
+    }
+    return imageArr;
+}
