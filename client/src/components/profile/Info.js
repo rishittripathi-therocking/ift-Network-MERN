@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Avatar from '../Avatar';
 import {getProfileUsers} from '../../redux/actions/profileAction';
 import EditProfile from './Editprofile';
+import FollowButton from './FollowButton';
 
 const Info = () => {
     const {id} = useParams();
@@ -34,7 +35,10 @@ const Info = () => {
                         <div className="info_content" >
                             <div className="info_content_title">
                                 <h2>{user.username}</h2>
-                                <button className="button button-3 button-3d icon-cog" style={{outline:'none'}} onClick={() => setOnEdit(true)}><i className="fa fa-cog"></i>Setting</button>
+                                {
+                                    user._id === auth.user._id ? <button className="button button-3 button-3d icon-cog" style={{outline:'none'}} onClick={() => setOnEdit(true)}><i className="fa fa-cog"></i>Setting</button>: <FollowButton />
+                                }
+                                
                             </div>
                             <div className="follow_btn">
                                <span className="mr-4">
@@ -53,7 +57,7 @@ const Info = () => {
                             <p>{user.story}</p>
                         </div>
                         {
-                            onEdit && <EditProfile user={user} setOnEdit={setOnEdit}/>
+                            onEdit && <EditProfile setOnEdit={setOnEdit}/>
                         }
                     </div>
                 ))

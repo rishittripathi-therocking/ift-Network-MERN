@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux'; 
 import {logout} from '../../redux/actions/authAction';

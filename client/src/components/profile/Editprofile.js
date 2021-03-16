@@ -1,7 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {checkImage} from '../../utils/imageUpload';
+import {GLOBALTPES} from '../../redux/actions/globalType';
 
-const EditProfile = ({user,setOnEdit}) => {
+const EditProfile = ({setOnEdit}) => {
     const initialState = {
         fullname: '',
         mobile: '',
@@ -11,13 +13,17 @@ const EditProfile = ({user,setOnEdit}) => {
         gender: ''
     }
     const [userData, setUserData] = useState(initialState);
-    const {fullname,mobile,address,website,story,gender} = userData;
+    const {fullname,mobile,address,website,story} = userData;
 
     const [avatar, setAvatar] = useState('');
     const {auth} = useSelector(state => state);
 
+    const dispatch = useDispatch();
+
     const cahngeAvatar = (e) => {
-        const file = e.target.files[0]
+        const file = e.target.files[0];
+        const err = checkImage(file);
+        if(err) return dispatch({type:GLOBALTPES.ALERT , payload: {error:err}});
         setAvatar(file);
     }
 
@@ -25,6 +31,10 @@ const EditProfile = ({user,setOnEdit}) => {
         const {name,value} = e.target;
         setUserData({...userData,[name]:value});
     }
+
+    useEffect(()=>{
+        setUserData(auth.user);
+    },[auth.user]);
 
     return (
         <div className="edit_profile">
