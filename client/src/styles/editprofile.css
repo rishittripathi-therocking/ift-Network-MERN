@@ -46,6 +46,22 @@
     margin: 60px 0 0 5px;
     position: absolute;
   }
+
+  .close-follow {
+    color: #000;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 0.6em;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease-in;
+    opacity: 0;
+  }
+  
+  .close-follow {
+    margin: 60px 0 0 5px;
+    position: absolute;
+  }
   
   .close-container:hover .leftright {
     transform: rotate(-45deg);
