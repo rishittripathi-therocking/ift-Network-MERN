@@ -1,7 +1,7 @@
-import e from 'express';
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {GLOBALTYPES} from '../redux/actions/globalType';
+import {createPost} from '../redux/actions/postAction';
 
 const StatusModal = () => {
     const {auth,theme} = useSelector(state=>state);
@@ -66,9 +66,20 @@ const StatusModal = () => {
         tracks.stop()
         setStream(false);
     }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(images.length === 0){
+            dispatch({type: GLOBALTYPES.ALERT, payload:{error: "Please add your photo"}});
+            return dispatch({type: GLOBALTYPES.ALERT, payload:{}});
+        }
+
+        dispatch(createPost({content, images, auth}));
+    }
+
     return (
         <div className="status_modal">
-            <form >
+            <form onSubmit={handleSubmit}>
                 <div className="status_header">
                     <h5 className="m-0">Create Post</h5>
                     <div className="close-container" onClick={()=> dispatch({type: GLOBALTYPES.STATUS,payload: false}) }>
@@ -116,7 +127,7 @@ const StatusModal = () => {
                 </div>
                 <div className="status_footer my-2">
                     <div>
-                        <button className="button button-2 button-2g w-100" style={{outline: 'none'}}>Posts</button>
+                        <button type="submit" className="button button-2 button-2g w-100" style={{outline: 'none'}}>Posts</button>
                     </div>
                 </div>
             </form>
