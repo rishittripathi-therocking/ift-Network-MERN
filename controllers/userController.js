@@ -37,7 +37,26 @@ const userController = {
         } catch(err) {
             return res.status(500).json({msg: err.message});
         }
-    }
+    },
+    follow: async(req,res) => {
+        try{
+            const user = await Users.find({_id: req.params.id, followers: req.user._id});
+            if(user.length > 0) return res.status(400).json({msg: "You Followed this user"});
+
+            await Users.findByIdAndUpdate({_id: req.params.id},{
+                $push: {followers: req.user._id}
+            },{new: true});
+
+            await Users.findByIdAndUpdate({_id: req.user._id},{
+                $push: {following: req.params.id}
+            },{new: true});
+
+            return res.status(200).json({msg: 'User Followed'});
+
+        } catch(err) {
+            return res.status(500).json({msg: err.message});
+        }
+    },
 }
 
 module.exports = userController;
