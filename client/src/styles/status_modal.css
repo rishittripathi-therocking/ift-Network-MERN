@@ -1,0 +1,91 @@
+.status_modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.582);
+    z-index: 4;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+}
+
+.status_modal form {
+    max-width: 450px;
+    width: 100%;
+    background: white;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.status_modal .status_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    margin: 10px;
+    padding-bottom: 15px;
+    translate: translateY(-13px);
+}
+
+.status_modal .status_body textarea {
+    width: 100%;
+    min-height: 150px;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 15px;
+}
+
+.status_modal .status_body .input_images {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.status_modal .status_body .input_images i{
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.status_modal .status_body .input_images .file_upload {
+    overflow: hidden;
+    margin: 0 10px;
+    position: relative;
+}
+
+.status_modal .status_body .input_images .file_upload #file{
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+/* Button 2 */
+.button-2 {
+    background: #cb4e4e;
+    color: #fff;
+    -webkit-box-shadow: 0 4px #ab3c3c;
+    -moz-box-shadow: 0 4px #ab3c3c;
+    box-shadow: 0 4px #ca5a5a;
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+    align-items: center;
+}
+
+/* Button 2g */
+.button-2g {
+    border-radius: 45px;
+}
+.button-2g:hover {
+    box-shadow: 0 4px #ab3c3c;
+    top: 2px;
+}
+.button-2g:active {
+    box-shadow: 0 0 #ab3c3c;
+    top: 6px;
+}
+
+
+

@@ -7,6 +7,7 @@ import Register from './pages/register';
 import Home from './pages/home';
 import Alert from './components/alert/Alert';
 import Header from './components/alert/header';
+import StatusModal from './components/StatusModal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useSelector, useDispatch} from 'react-redux';
@@ -14,7 +15,7 @@ import {refreshToken} from './redux/actions/authAction';
 
 toast.configure();
 function App() {
-  const {auth} = useSelector(state => state);
+  const {auth, status} = useSelector(state => state);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(refreshToken());
@@ -37,6 +38,7 @@ function App() {
       <div className="App">
         <div className="main">
           {auth.token && <Header />}
+          {status && <StatusModal />}
           <Switch>
             <Route exact path='/' component={auth.token ? Home : Login} />
             <Route exact path='/register' component={Register} />
