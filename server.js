@@ -11,6 +11,7 @@ app.use(cors());
 
 app.use('/socialapi', require('./routes/authRoute'));
 app.use('/socialapi', require('./routes/userRoute'));
+app.use('/socialapi', require('./routes/postRoute'));
 
 const URI = process.env.MONGO_URL;
 mongoose.connect(URI, {

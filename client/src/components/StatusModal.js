@@ -1,3 +1,4 @@
+import e from 'express';
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {GLOBALTYPES} from '../redux/actions/globalType';
@@ -65,10 +66,9 @@ const StatusModal = () => {
         tracks.stop()
         setStream(false);
     }
-
     return (
         <div className="status_modal">
-            <form>
+            <form >
                 <div className="status_header">
                     <h5 className="m-0">Create Post</h5>
                     <div className="close-container" onClick={()=> dispatch({type: GLOBALTYPES.STATUS,payload: false}) }>
