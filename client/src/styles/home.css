@@ -1,0 +1,25 @@
+.status {
+    background: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.589);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.status .status_Btn {
+    background: #f1f1f1;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    color: #555;
+    padding: 0 10px;
+    text-align: left;
+    font-weight: bold;
+    margin: 0 7px;
+}
+
+.status .status_Btn:hover {
+    background: #ddd;
+}
+
+
+
