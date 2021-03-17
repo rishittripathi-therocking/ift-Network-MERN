@@ -34,7 +34,7 @@ const Register = () => {
         <React.Fragment>
             
             <div className="container auth_page" >
-                <div className="card">
+                <div className="card-auth">
                     <h1 className="text-uppercase text-center">IFT-NETWORK</h1>
                     <article className="card-body">
                         <Link to="/login" className="float-right btn btn-outline-primary text-danger">Login</Link>

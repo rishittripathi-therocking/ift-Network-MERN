@@ -1,4 +1,4 @@
-import {GLOBALTYPES, EditData, DeleteData} from '../actions/globalType';
+import {GLOBALTYPES, DeleteData} from '../actions/globalType';
 import {getDataAPI, patchDataAPI} from '../../utils/fetchData';
 import {imageUpload} from '../../utils/imageUpload';
 

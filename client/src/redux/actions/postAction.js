@@ -16,7 +16,7 @@ export const createPost = ({content, images, auth}) => async(dispatch) => {
         if(images.length > 0) {
             media = await imageUpload(images);
         }
-        const res = await postDataAPI('posts', {content, images, images: media}, auth.token);
+        const res = await postDataAPI('posts', {content, images, media}, auth.token);
         dispatch({type: POST_TYPES.CREATE_POST, payload: res.data.newPost});
         
         dispatch({type: GLOBALTYPES.ALERT, payload: {loading: false}});
@@ -29,10 +29,10 @@ export const createPost = ({content, images, auth}) => async(dispatch) => {
 
 export const getPosts = (token) => async(dispatch) => {
     try {
-        dispatch({type: POST_TYPES.LOADING_POST, payload: {loading: true}});
+        dispatch({type: POST_TYPES.LOADING_POST, payload: true});
         const res = await getDataAPI('posts',token);
-        dispatch({type: POST_TYPES.GET_POSTS, payload: res.data})
-        dispatch({type: POST_TYPES.LOADING_POST, payload: {loading: false}});
+        dispatch({type: POST_TYPES.GET_POSTS, payload: res.data});
+        dispatch({type: POST_TYPES.LOADING_POST, payload:false});
     } catch(err) {
         dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});
         dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
