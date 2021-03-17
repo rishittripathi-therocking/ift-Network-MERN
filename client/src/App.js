@@ -12,6 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useSelector, useDispatch} from 'react-redux';
 import {refreshToken} from './redux/actions/authAction';
+import {getPosts} from './redux/actions/postAction';
 
 toast.configure();
 function App() {
@@ -19,7 +20,12 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(refreshToken());
-  },[dispatch])
+  },[dispatch]);
+
+  useEffect(() => {
+    if (auth.token) dispatch(getPosts(auth.token));
+  },[dispatch, auth.token]);
+
   return (
     <Router>
       <Alert />
