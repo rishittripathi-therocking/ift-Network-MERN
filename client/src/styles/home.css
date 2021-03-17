@@ -33,5 +33,22 @@
     padding: 15px 25px;
 }
 
+.posts .card_header .card_name{
+    transform: translateY(3px);
+}
+
+.posts .card_header .dropdown-menu {
+    position: absolute;
+    left: inherit !important;
+    right: 0;
+
+}
+
+.posts .card_header .dropdown-item {
+    display: flex;
+    margin: 5px 0;
+
+}
+
 
 
