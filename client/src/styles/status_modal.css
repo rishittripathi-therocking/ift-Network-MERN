@@ -128,5 +128,22 @@
 }
 
 
+.status_body .stream  span {
+    position: absolute;
+    top: -17px;
+    right: -7px;
+    color: crimson;
+    font-size: 2rem;
+    font-weight: 900;
+    cursor: pointer;
+    border: 1px solid crimson;
+    border-radius: 50%;
+    background: white;
+    width: 50px;
+    padding-left: 13px;
+    padding-bottom: 5px;
+}
+
+
 
 
