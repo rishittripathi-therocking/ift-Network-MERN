@@ -4,8 +4,13 @@ const postController = {
     createPost: async(req,res) => {
         try {
             const {content, images} = req.body;
+
+            if(images.length === 0) {
+                return res.status(400).json({msg: 'Image is required for the post'});
+            }
+
             const newPost = new Posts({
-                content,images
+                content,images, user: req.user._id
             })
             await newPost.save();
             

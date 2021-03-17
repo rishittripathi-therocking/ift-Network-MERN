@@ -75,6 +75,12 @@ const StatusModal = () => {
         }
 
         dispatch(createPost({content, images, auth}));
+        setContent('');
+        setImages([]);
+        if(tracks) {
+            tracks.stop();
+        }
+        dispatch({type: GLOBALTYPES.STATUS, payload: false});
     }
 
     return (
