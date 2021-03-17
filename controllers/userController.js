@@ -57,6 +57,24 @@ const userController = {
             return res.status(500).json({msg: err.message});
         }
     },
+    unfollow: async(req,res) => {
+        try{
+            
+
+            await Users.findByIdAndUpdate({_id: req.params.id},{
+                $pull: {followers: req.user._id}
+            },{new: true});
+
+            await Users.findByIdAndUpdate({_id: req.user._id},{
+                $pull: {following: req.params.id}
+            },{new: true});
+
+            return res.status(200).json({msg: 'User UnFollowed'});
+
+        } catch(err) {
+            return res.status(500).json({msg: err.message});
+        }
+    },
 }
 
 module.exports = userController;
