@@ -13,13 +13,12 @@ const Followers = ({users, setShowFollowers}) => {
                 <hr />
                 {
                     users.map((user,index) => (
-                        <Link key={index} className="nav-link" to={`/profile/${user._id}`} onClick={()=>setShowFollowers(false)}>
-                            <UserCard user={user} border='border'  setShowFollowers={setShowFollowers}>
-                                {
-                                    auth.user._id !== user._id && <FollowBtn user={user} />
-                                }
-                            </UserCard>
-                        </Link>
+                        <div key={index} className="d-flex p-2 align-items-center justify-content-between  bg-light border">
+                            <Link  className="nav-link" to={`/profile/${user._id}`} onClick={()=>setShowFollowers(false)}>
+                                <UserCard user={user} border=''  setShowFollowers={setShowFollowers} />
+                            </Link>
+                            {auth.user._id !== user._id && <FollowBtn user={user} />}
+                        </div>
                     ))
                 }
                 <div className="close-container" onClick={()=>setShowFollowers(false)}>
