@@ -25,7 +25,8 @@ const postController = {
     getPosts: async(req,res) => {
         try {
             console.log(req.user);
-            const posts =await Posts.find({user: [...req.user.following, req.user._id]});
+            const posts =await Posts.find({user: [...req.user.following, req.user._id]})
+            .populate('user likes','avatar username fullname');
             res.json({
                 msg: 'Success',
                 result: posts.length,
