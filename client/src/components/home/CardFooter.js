@@ -16,7 +16,7 @@ const CardFooter = ({post}) => {
                 <i className="far fa-bookmark"/>
             </div>
             <div className="row justify-content-between mx-0">
-                <h6 style={{padding: '0 25px', cursor:'pointer'}}>
+                <h6 style={{padding: '0 35px', cursor:'pointer'}}>
                     {post.likes.length} likes
                  </h6>
                 <h6 style={{padding: '0 25px', cursor:'pointer'}}>

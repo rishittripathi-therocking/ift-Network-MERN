@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {GLOBALTYPES} from '../redux/actions/globalType';
-import {createPost} from '../redux/actions/postAction';
+import {createPost, updatePost} from '../redux/actions/postAction';
 
 const StatusModal = () => {
-    const {auth,theme} = useSelector(state=>state);
+    const {auth,theme, status} = useSelector(state=>state);
     const dispatch = useDispatch();
     const [content, setContent] = useState('');
     const [images, setImages] = useState([]);
@@ -73,8 +73,12 @@ const StatusModal = () => {
             dispatch({type: GLOBALTYPES.ALERT, payload:{error: "Please add your photo"}});
             return dispatch({type: GLOBALTYPES.ALERT, payload:{}});
         }
-
-        dispatch(createPost({content, images, auth}));
+        if(status.onEdit){
+            dispatch(updatePost({content, images, auth, status}));
+        }
+        else{
+            dispatch(createPost({content, images, auth}));
+        }
         setContent('');
         setImages([]);
         if(tracks) {
@@ -82,6 +86,13 @@ const StatusModal = () => {
         }
         dispatch({type: GLOBALTYPES.STATUS, payload: false});
     }
+
+    useEffect(()=>{
+        if(status.onEdit){
+            setContent(status.content);
+            setImages(status.images);
+        }
+    },[status]);
 
     return (
         <div className="status_modal">
@@ -95,7 +106,7 @@ const StatusModal = () => {
                     </div>
                 </div>
                 <div className="status_body">
-                    <textarea name="content" placeholder={`${auth.user.username}, what are you thinking`} onChange={e => setContent(e.target.value)}/>
+                    <textarea name="content" placeholder={`${auth.user.username}, what are you thinking`} onChange={e => setContent(e.target.value)} value={content}/>
                     <div className="input_images">
                         {
                             stream ? 
@@ -124,7 +135,7 @@ const StatusModal = () => {
                         {
                             images.map((img,ind) => (
                                 <div key={ind} id="file_img">
-                                    <img src={img.camera ? img.camera : URL.createObjectURL(img)}  alt="images" className="img img-responsive img-thumbnail" style={{filter: theme ? 'invert(1)':'invert(0)'}}/>
+                                    <img src={img.camera ? img.camera : img.url? img.url: URL.createObjectURL(img)}  alt="images" className="img img-responsive img-thumbnail" style={{filter: theme ? 'invert(1)':'invert(0)'}}/>
                                     <span onClick={() => deleteImages(ind)}>&times;</span>
                                 </div>
                             ))
