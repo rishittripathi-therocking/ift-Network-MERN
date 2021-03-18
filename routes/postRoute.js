@@ -6,7 +6,7 @@ router.route('/posts')
     .post(auth, postController.createPost)
     .get(auth, postController.getPosts);
 
-router.route('/post/:id')
+router.route('/posts/:id')
     .patch(auth,postController.updatePosts);
 
 
