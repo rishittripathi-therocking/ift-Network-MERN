@@ -80,7 +80,7 @@ code {
   bottom: 0;
   right:0;
   z-index: 2;
-  box-shadow: 0 0 10px #fff;
+  box-shadow: 0 0 10px #ddd;
 }
 
 .header .navbar {

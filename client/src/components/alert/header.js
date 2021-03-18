@@ -62,7 +62,7 @@ const Header = () => {
     return (
         <div className='header bg-dark'>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between align-middle">
-                <Link className="navbar-brand" to='/'>
+                <Link className="navbar-brand" to='/' onClick={()=>window.scrollTo({top: 0})}>
                     <img src={logo} width="30" height="30" className="d-inline-block align-top p-1" alt="" style={{filter: theme?'invert(1)':'invert(0)'}}/>
                     IFT-NETWORK
                 </Link>

@@ -8,6 +8,13 @@ const Carousel = ({images, id}) => {
     const {theme} = useSelector(state=>state);
     return (
             <div id={`image${id}`} className="carousel slide" data-ride="carousel">
+                <ol className="carousel-indicators" style={{filter: theme?'invert(1)':'invert(1)'}}>
+                    {
+                        images.map((img,index) => (
+                            <li key={index} data-target={`#image${id}`} data-slide-to={index} className={isActive(index)} />
+                        ))
+                    }
+                </ol>
                 <div className="carousel-inner">
                     {
                         images.map((img,index)=>(

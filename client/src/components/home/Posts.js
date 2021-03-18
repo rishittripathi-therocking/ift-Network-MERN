@@ -10,7 +10,7 @@ const Posts = () => {
         <div className="posts">
             {
                 homePosts.posts.map((post,ind)=>(
-                    <div className="card my-3" key={ind} style={{bottom: (ind===homePosts.posts.length-1)?'50px':''}}>
+                    <div className="card my-3" key={ind} style={{paddingBottom: (ind===homePosts.posts.length-1)?'35px':''}}>
                         <CardHeader post={post}/>
                         <CardBody post={post}/>
                         <CardFooter post={post}/>
