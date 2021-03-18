@@ -175,6 +175,12 @@ code {
 
 }
 
+.mode {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
 @import url("./styles/auth.css");
 @import url("./styles/profile.css");
 @import url("./styles/editprofile.css");

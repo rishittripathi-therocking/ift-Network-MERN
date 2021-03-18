@@ -16,7 +16,7 @@ import {getPosts} from './redux/actions/postAction';
 
 toast.configure();
 function App() {
-  const {auth, status} = useSelector(state => state);
+  const {auth, status,modal} = useSelector(state => state);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(refreshToken());
@@ -41,7 +41,7 @@ function App() {
                 pauseOnHover
           />
       <input type="checkbox" id="theme" />
-      <div className="App">
+      <div className={`App ${(status || modal) && 'mode'}`}>
         <div className="main">
           {auth.token && <Header />}
           {status && <StatusModal />}
