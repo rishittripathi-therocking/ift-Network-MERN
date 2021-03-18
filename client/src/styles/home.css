@@ -61,5 +61,22 @@
     cursor: pointer;
 }
 
+.posts .card_icon_menu {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    cursor: pointer;
+}
 
+.posts .card_icon_menu i {
+    font-size: 28px;
+    margin: 10px; 
+}
+
+.posts .card_icon_menu img {
+    width: 28px;
+    height: 27px;
+    transform: translate(5px,-7px); 
+    opacity: 0.8;
+}
 
