@@ -64,3 +64,32 @@ export const updatePost = ({content, images, auth,status}) => async(dispatch) =>
         dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
     }
 }
+
+
+export const likePost = ({post, auth}) => async(dispatch) => {
+    
+    const newPost = {...post, likes: [...post.likes,auth.user]}
+    dispatch({type:POST_TYPES.UPDATE_POST, payload: newPost});
+    try {
+        await patchDataAPI(`/post/${post._id}/like`,null,auth.token);
+
+    } catch(err) {
+        dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});
+        dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
+    }
+    
+}
+
+export const unlikePost = ({post, auth}) => async(dispatch) => {
+    
+    const newPost = {...post, likes: post.likes.filter(like => like._id !== auth.user._id)}
+    dispatch({type:POST_TYPES.UPDATE_POST, payload: newPost});
+    try {
+        await patchDataAPI(`/post/${post._id}/unlike`,null,auth.token);
+
+    } catch(err) {
+        dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});
+        dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
+    }
+    
+}

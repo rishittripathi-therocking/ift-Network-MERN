@@ -55,6 +55,31 @@ const postController = {
             return res.status(500).json({msg: err.message});
         }
     },
+    likePost: async(req,res) => {
+        try {
+            const post = await Posts.find({_id: req.params.id, likes: req.user._id});
+            if(post.length > 0) return res.status(400).json({msg: "You Already Liked this Post"});
+            await Posts.findOneAndUpdate({_id: req.params.id}, {
+                $push: {likes: req.user._id}
+            },{new: true})
+
+            res.json({msg: 'You Liked Posts'});
+        } catch(err) {
+            return res.status(500).json({msg: err.message});
+        }
+    },
+    unlikePost: async(req,res) => {
+        try {
+            
+            await Posts.findOneAndUpdate({_id: req.params.id}, {
+                $pull: {likes: req.user._id}
+            },{new: true})
+
+            res.json({msg: 'You UnLiked Posts'});
+        } catch(err) {
+            return res.status(500).json({msg: err.message});
+        }
+    }
 
     
 }

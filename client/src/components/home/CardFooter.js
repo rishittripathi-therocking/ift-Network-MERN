@@ -1,18 +1,36 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {Link} from 'react-router-dom';
 import Send from '../../images/send.svg';
 import LikeButton from '../LikeButton';
+import {likePost, unlikePost} from '../../redux/actions/postAction';
 
 const CardFooter = ({post}) => {
     const [isLike, setIsLike] = useState(false);
     const [loadLike, setLoadLike] = useState(false);
+    const {auth} = useSelector(state=>state);
+    const dispatch = useDispatch();
 
-    const handleLike = () => {
+    useEffect(()=>{
+        if(post.likes.find(like=>like._id === auth.user._id)){
+            setIsLike(true);
+        }
+    },[post.likes,auth.user._id])
+
+    const handleLike = async() => {
+        if(loadLike) return;
         setIsLike(true);
+        setLoadLike(true);
+        dispatch(likePost({ post, auth }));
+        setLoadLike(false);
     }
 
-    const handleUnlike = () => {
+    const handleUnlike = async() => {
+        if(loadLike) return;
         setIsLike(false);
+        setLoadLike(true);
+        dispatch(unlikePost({ post, auth }));
+        setLoadLike(false);
     }
 
     return (
