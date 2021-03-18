@@ -50,5 +50,16 @@
 
 }
 
+.posts .card_body-content {
+    padding: 0 25px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.posts .card_body-content .readMore {
+    color: crimson;
+    cursor: pointer;
+}
+
 
 
