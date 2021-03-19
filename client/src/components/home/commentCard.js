@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Avatar from '../Avatar';
 import {Link} from 'react-router-dom';
 import moment from 'moment';
-import Comments from './Comments';
 
 const CommentsCard = ({comment,post}) => {
     const [content,setContent] = useState('');
@@ -12,8 +11,13 @@ const CommentsCard = ({comment,post}) => {
         setContent(comment.content);
     },[comment]);
 
+    const styleCard = {
+        opacity: comment._id ? 1 :0.5 ,
+        pointerEvents: comment._id ? 'inherit':'none'
+    }
+
     return (
-        <div className="comment_card mt-3">
+        <div className="comment_card " style={styleCard}>
             <Link to={`profile/${comment.user._id}`} className="d-flex text-dark">
                 <Avatar src={comment.user.avatar} size="small-avatar" />
                 <h6 className="mx-1">{comment.user.username}</h6>
@@ -34,14 +38,14 @@ const CommentsCard = ({comment,post}) => {
                             </span>
                         }
                     </div>
-                    <div >
-                        <small className="text-muted mr-3" style={{cursor: 'pointer'}}>
+                    <div style={{cursor: 'pointer'}}>
+                        <small className="text-muted mr-3" >
                             {moment(comment.createdAt).fromNow()}
                         </small>
-                        <small className="font-weight-bold mr-3" style={{cursor: 'pointer'}}>
+                        <small className="font-weight-bold mr-3" >
                             {comment.likes.length} likes
                         </small>
-                        <small className="font-weight-bold mr-3" style={{cursor: 'pointer'}}>
+                        <small className="font-weight-bold mr-3">
                             reply
                         </small>
                     </div>

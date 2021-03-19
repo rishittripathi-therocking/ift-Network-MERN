@@ -17,3 +17,23 @@
     color: blue;
     font-weight: 600;
 }
+
+.comment_display {
+    padding: 10px 25px;
+}
+
+.comment_card .comment_content{
+    background: #eee;
+    padding: 7px;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment_card .comment_content .readMore {
+    cursor: pointer;
+    color: crimson;
+    margin-left: 5px;
+}
