@@ -30,6 +30,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 0 7px #0008;
 }
 
 .comment_card .comment_content .readMore {
@@ -37,3 +38,24 @@
     color: crimson;
     margin-left: 5px;
 }
+
+.comment_card .comment_content .nav-item {
+    cursor: pointer;
+    opacity: 0;
+}
+
+.comment_card .comment_content .dropdown-menu {
+    position: absolute;
+    right: 0;
+    left: inherit;
+}
+
+.comment_card .comment_content .dropdown-item {
+    display: flex;
+    margin: 10px 0;
+}
+
+.comment_card .comment_content:hover .nav-item {
+    opacity: 1;
+}
+

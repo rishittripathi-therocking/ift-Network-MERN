@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Avatar from '../Avatar';
 import {Link} from 'react-router-dom';
 import moment from 'moment';
+import CommentMenu from './CommentMenu';
+import LikeButton from '../LikeButton';
+import { useSelector } from 'react-redux';
 
 const CommentsCard = ({comment,post}) => {
     const [content,setContent] = useState('');
     const [readMore, setReadMore] = useState(false);
+    const {auth} = useSelector(state=>state);
+    const [isLike, setIsLike] = useState(false);
 
     useEffect(()=>{
         setContent(comment.content);
@@ -14,6 +19,14 @@ const CommentsCard = ({comment,post}) => {
     const styleCard = {
         opacity: comment._id ? 1 :0.5 ,
         pointerEvents: comment._id ? 'inherit':'none'
+    }
+
+    const handleLike = async() => {
+        setIsLike(true);
+    }
+
+    const handleUnlike = async() => {
+        setIsLike(false);
     }
 
     return (
@@ -49,6 +62,10 @@ const CommentsCard = ({comment,post}) => {
                             reply
                         </small>
                     </div>
+                </div>
+                <div className="d-flex align-items-center mx-1">
+                    <CommentMenu post={post} comment={comment} auth={auth}/>
+                    <LikeButton style={{cursor: 'pointer'}} isLike={isLike} handleLike={handleLike} handleUnlike={handleUnlike}/>
                 </div>
             </div>
         </div>

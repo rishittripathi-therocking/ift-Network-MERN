@@ -1,16 +1,32 @@
-import React from 'react';
-import { postDataAPI } from '../../utils/fetchData';
+import React, { useState } from 'react';
 import CommentDisplay from './commentDisplay';
 
 const Comments = ({post}) => {
+    const [viewComment,setViewComment] = useState(false);
     return (
-        <div className="comments">
+        <>
+            <h6 onClick={()=> setViewComment(!viewComment)} style={{color:'crimson', paddingLeft:'23px', cursor:'pointer'}}>
+                {
+                    viewComment ? 'Hide All Comments ' : 'View Comments ... '
+                }
+            </h6>
             {
-                post.comments.map(comment => (
-                    <CommentDisplay key={comment._id} comment={comment} post={post}/>
-                ))
+                viewComment ? post.comments.length > 0 ? 
+                <div className="comments">
+                    {   
+                        post.comments.map(comment => (
+                            <CommentDisplay key={comment._id} comment={comment} post={post}/>
+                        ))
+                    }
+                </div>:
+                <small style={{color:'crimson', paddingLeft:'23px',marginBottom: '5px'}}>
+                    No Comments Yet
+                </small>
+                :''
             }
-        </div>
+            
+            
+        </>
     )
 }
 
