@@ -1,3 +1,4 @@
+const Posts = require('../models/postModel');
 const Comments = require('../models/commentModel');
 
 
@@ -9,7 +10,7 @@ const commentController = {
                 user: req.user._id, content, tag, reply
             })
 
-            await postMessage.findOneAndUpdate({_id: postId}, {
+            await Posts.findOneAndUpdate({_id: postId}, {
                 $push: {comments: newComment._id}
             }, {new: true})
             await newComment.save();

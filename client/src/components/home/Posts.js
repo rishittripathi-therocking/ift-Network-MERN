@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import CardHeader from './CardHeader';
 import CardBody from './CardBody';
 import CardFooter from './CardFooter';
+import Comments from './Comments';
+import InputComment from './inputComment';
 
 const Posts = () => {
     const {homePosts} = useSelector(state => state);
@@ -14,6 +16,9 @@ const Posts = () => {
                         <CardHeader post={post}/>
                         <CardBody post={post}/>
                         <CardFooter post={post}/>
+
+                        <Comments post={post} />
+                        <InputComment post={post}/>
                     </div>
                 ))
             }
