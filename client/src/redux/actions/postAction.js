@@ -102,6 +102,7 @@ export const deletePost = ({post,auth}) => async(dispatch) => {
         const res = await deleteDataAPI(`posts/${post._id}`, auth.token);
         dispatch({type: POST_TYPES.DELETE_POST, payload: {post}});
         dispatch({type: GLOBALTYPES.ALERT, payload: {loading: false}});
+        dispatch({type: GLOBALTYPES.ALERT, payload: {success: res.data.msg}});
     } catch(err) {
         dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});
         dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
