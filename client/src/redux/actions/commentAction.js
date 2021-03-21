@@ -18,3 +18,4 @@ export const createComment = (post,newComment,auth) => async(dispatch) => {
         dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
     }
 }
+

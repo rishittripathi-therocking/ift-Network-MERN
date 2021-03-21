@@ -14,8 +14,8 @@ const Comments = ({post}) => {
                 viewComment ? post.comments.length > 0 ? 
                 <div className="comments">
                     {   
-                        post.comments.map(comment => (
-                            <CommentDisplay key={comment._id} comment={comment} post={post}/>
+                        post.comments.map((comment,ind) => (
+                            <CommentDisplay key={ind} comment={comment} post={post}/>
                         ))
                     }
                 </div>:

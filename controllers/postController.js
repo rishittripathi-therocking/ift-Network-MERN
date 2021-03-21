@@ -1,4 +1,6 @@
+const { findOne } = require('../models/postModel');
 const Posts = require('../models/postModel');
+const Comments = require('../models/commentModel');
 
 const postController = {
     createPost: async(req,res) => {
@@ -86,6 +88,22 @@ const postController = {
         } catch(err) {
             return res.status(500).json({msg: err.message});
         }
+    },
+    deletePost: async(req,res) => {
+        try{
+            const Post = await Posts.findOne({_id:req.params.id});
+            const post = await Posts.findOneAndDelete({_id: req.params.id});
+            Post.comments.forEach(async(comment) => {
+                await Comments.findOneAndDelete({_id: comment._id});
+            });
+            if(post.err) return res.status(400).json({msg: post.err});
+            
+
+            res.json({msg: "You Deleted your Post"});
+        } catch(err) {
+            return res.status(500).json({msg: err.message});
+        }
+        
     }
 
     

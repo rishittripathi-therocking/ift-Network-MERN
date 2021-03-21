@@ -29,6 +29,8 @@ const CommentsCard = ({comment,post}) => {
         setIsLike(false);
     }
 
+    
+
     return (
         <div className="comment_card " style={styleCard}>
             <Link to={`profile/${comment.user._id}`} className="d-flex text-dark">

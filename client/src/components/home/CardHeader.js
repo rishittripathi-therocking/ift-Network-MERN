@@ -4,12 +4,16 @@ import {Link} from 'react-router-dom';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import {GLOBALTYPES} from '../../redux/actions/globalType';
+import {deletePost} from '../../redux/actions/postAction';
 
 const CardHeader = ({post}) => {
     const {auth} = useSelector(state=>state);
     const dispatch = useDispatch();
     const handleEditPost = () => {
         dispatch({type: GLOBALTYPES.STATUS, payload: {...post, onEdit:true}});
+    }
+    const handleDeletePost = () => {
+        dispatch(deletePost({post,auth}));
     }
     return (
         <div className="card_header">
@@ -37,7 +41,7 @@ const CardHeader = ({post}) => {
                             <div className="dropdown-item" onClick={handleEditPost}>
                                 <span className="material-icons">create</span> Edit Post
                             </div>
-                            <div className="dropdown-item">
+                            <div className="dropdown-item" onClick={handleDeletePost}>
                                 <span className="material-icons">delete_outline</span> Delete Post
                             </div>
                         </React.Fragment>
