@@ -22,6 +22,7 @@
     height: 100%;
     display: block;
     object-fit: cover;
+    border-radius: 25px;
 }
 
 
@@ -42,6 +43,7 @@
 
 .profile_posts_display .profile_posts_menu:hover {
     opacity:1;
+    border-radius: 25px;
 }
 
 .profile_posts_display .profile_posts_menu span {

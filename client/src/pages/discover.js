@@ -1,9 +1,14 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React,{useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {getAllPosts} from '../redux/actions/postDiscoverAction';
 
 
 const Discover = () => {
-    const {discoverPosts,theme} = useSelector(state=>state);
+    const {discoverPosts,theme,auth} = useSelector(state=>state);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (auth.token) dispatch(getAllPosts(auth.token));
+      },[dispatch, auth.token]);
     return (
         <div className="profile_posts">
             {

@@ -103,6 +103,7 @@ export const deletePost = ({post,auth}) => async(dispatch) => {
         dispatch({type: POST_TYPES.DELETE_POST, payload: {post}});
         dispatch({type: GLOBALTYPES.ALERT, payload: {loading: false}});
         dispatch({type: GLOBALTYPES.ALERT, payload: {success: res.data.msg}});
+        dispatch({type: GLOBALTYPES.ALERT, payload:{}});
     } catch(err) {
         dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});
         dispatch({type:GLOBALTYPES.ALERT ,payload: {}});

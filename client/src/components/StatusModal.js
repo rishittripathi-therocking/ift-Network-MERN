@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {GLOBALTYPES} from '../redux/actions/globalType';
 import {createPost, updatePost} from '../redux/actions/postAction';
-import {getAllPosts} from '../redux/actions/postDiscoverAction';
 
 const StatusModal = () => {
     const {auth,theme, status} = useSelector(state=>state);
@@ -76,11 +75,9 @@ const StatusModal = () => {
         }
         if(status.onEdit){
             dispatch(updatePost({content, images, auth, status}));
-            dispatch(getAllPosts(auth.token ));
         }
         else{
             dispatch(createPost({content, images, auth}));
-            dispatch(getAllPosts(auth.token ));
         }
         setContent('');
         setImages([]);

@@ -4,16 +4,14 @@ import {Link} from 'react-router-dom';
 import Send from '../../images/send.svg';
 import LikeButton from '../LikeButton';
 import {likePost, unlikePost} from '../../redux/actions/postAction';
-import {getAllPosts} from '../../redux/actions/postDiscoverAction';
 
 const CardFooter = ({post}) => {
     const [isLike, setIsLike] = useState(false);
     const [loadLike, setLoadLike] = useState(false);
     const {auth} = useSelector(state=>state);
     const dispatch = useDispatch();
-
     useEffect(()=>{
-        if(post.likes.find(like=>like._id === auth.user._id)){
+        if(post.likes.find(like=>like._id === auth.user._id)===true){
             setIsLike(true);
         }
     },[post.likes,auth.user._id])
@@ -23,7 +21,6 @@ const CardFooter = ({post}) => {
         setIsLike(true);
         setLoadLike(true);
         dispatch(likePost({ post, auth }));
-        dispatch(getAllPosts(auth.token ));
         setLoadLike(false);
     }
 
@@ -32,7 +29,6 @@ const CardFooter = ({post}) => {
         setIsLike(false);
         setLoadLike(true);
         dispatch(unlikePost({ post, auth }));
-        dispatch(getAllPosts(auth.token ));
         setLoadLike(false);
     }
     return (
