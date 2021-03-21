@@ -8,7 +8,7 @@ export const POST_TYPES = {
     LOADING_POST: 'LOADING_POST',
     GET_POSTS: 'GET_POSTS',
     UPDATE_POST: 'UPDATE_POST',
-    DELETE_POST: 'DELETE_POST'
+    DELETE_POST: 'DELETE_POST',
 }
 
 export const createPost = ({content, images, auth}) => async(dispatch) => {
@@ -108,3 +108,4 @@ export const deletePost = ({post,auth}) => async(dispatch) => {
         dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
     }
 } 
+

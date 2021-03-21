@@ -32,15 +32,14 @@ const CardFooter = ({post}) => {
         dispatch(unlikePost({ post, auth }));
         setLoadLike(false);
     }
-
     return (
         <div className="card_footer">
             <div className="card_icon_menu">
                 <div>
                     <LikeButton isLike={isLike} handleLike={handleLike} handleUnlike={handleUnlike}/>
-                    <Link to={`/post/${post._id}`} className="text-dark">
+                    {/*<Link to={`/post/${post._id}`} className="text-dark">
                         <i className="far fa-comment"/>
-                    </Link>
+                    </Link>*/}
                     <img src={Send} alt="send" />
                 </div>
                 <i className="far fa-bookmark"/>

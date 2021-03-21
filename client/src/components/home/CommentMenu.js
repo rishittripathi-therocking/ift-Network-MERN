@@ -10,7 +10,7 @@ const CommentMenu = ({post, comment,auth}) => {
                     </span> Edit
                 </div>
                 <div className="dropdown-item">
-                    <span className="material-icons" >
+                    <span className="material-icons">
                         delete_outline
                     </span> Remove
                 </div>

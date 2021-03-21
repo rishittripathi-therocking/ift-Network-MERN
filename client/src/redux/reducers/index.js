@@ -7,6 +7,7 @@ import status from './statusReducer';
 import homePosts from './postReducer';
 import modal from './modalReducer';
 
+
 export default combineReducers({
     auth,
     alert,

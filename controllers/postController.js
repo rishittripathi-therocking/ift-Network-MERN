@@ -104,6 +104,27 @@ const postController = {
             return res.status(500).json({msg: err.message});
         }
         
+    },
+    getAllPost: async(req,res) => {
+        try {
+            const posts = await Posts.find({})
+            .sort('-createdAt')
+            .populate('user likes','avatar username fullname')
+            .populate({
+                path: 'comments',
+                populate: {
+                    path: "user likes",
+                    select: "-password"
+                }
+            })
+            res.json({
+                msg: 'Success',
+                result: posts.length,
+                posts
+            })
+        } catch(err) {
+            return res.status(500).json({msg: err.message});
+        }
     }
 
     
