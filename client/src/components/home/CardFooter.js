@@ -11,7 +11,7 @@ const CardFooter = ({post}) => {
     const {auth} = useSelector(state=>state);
     const dispatch = useDispatch();
     useEffect(()=>{
-        if(post.likes.find(like=>like._id === auth.user._id)===true){
+        if(post.likes.find(like=>like._id === auth.user._id)){
             setIsLike(true);
         }
     },[post.likes,auth.user._id])
