@@ -5,15 +5,18 @@ import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import {GLOBALTYPES} from '../../redux/actions/globalType';
 import {deletePost} from '../../redux/actions/postAction';
+import { getAllPosts } from '../../redux/actions/postDiscoverAction';
 
 const CardHeader = ({post}) => {
     const {auth} = useSelector(state=>state);
     const dispatch = useDispatch();
     const handleEditPost = () => {
         dispatch({type: GLOBALTYPES.STATUS, payload: {...post, onEdit:true}});
+        dispatch(getAllPosts(auth.token ));
     }
     const handleDeletePost = () => {
         dispatch(deletePost({post,auth}));
+        dispatch(getAllPosts(auth.token));
     }
     return (
         <div className="card_header">

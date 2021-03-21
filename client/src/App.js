@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {useSelector, useDispatch} from 'react-redux';
 import {refreshToken} from './redux/actions/authAction';
 import {getPosts} from './redux/actions/postAction';
+import {getAllPosts} from './redux/actions/postDiscoverAction';
 
 toast.configure();
 function App() {
@@ -24,6 +25,7 @@ function App() {
 
   useEffect(() => {
     if (auth.token) dispatch(getPosts(auth.token));
+    if (auth.token) dispatch(getAllPosts(auth.token));
   },[dispatch, auth.token]);
 
   return (

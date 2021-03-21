@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {createComment} from '../../redux/actions/commentAction';
+import {getAllPosts} from '../../redux/actions/postDiscoverAction';
 
 const InputComment = ({children,post}) => {
     const [content,setContent] = useState('');
@@ -19,6 +20,7 @@ const InputComment = ({children,post}) => {
             createdAt: new Date().toISOString()
         }
         dispatch(createComment(post,newComment,auth));
+        dispatch(getAllPosts(auth.token ));
     }
 
     return (
