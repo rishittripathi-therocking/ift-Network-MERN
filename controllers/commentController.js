@@ -53,6 +53,16 @@ const commentController = {
             return res.status(500).json({msg: err.message});
         }
     },
+    deleteComment: async(req,res) => {
+        try{
+            const comment = await Comments.findOneAndDelete({_id: req.params.id});
+            if(comment.err) return res.status(400).json({msg: post.err});
+            res.json({msg: "You Deleted your comment"});
+        } catch(err) {
+            return res.status(500).json({msg: err.message});
+        }
+        
+    },
 }
 
 module.exports = commentController;

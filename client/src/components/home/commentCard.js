@@ -5,7 +5,7 @@ import moment from 'moment';
 import CommentMenu from './CommentMenu';
 import LikeButton from '../LikeButton';
 import { useDispatch, useSelector } from 'react-redux';
-import {updateCommment, likeComment, unlikeComment} from '../../redux/actions/commentAction';
+import {updateCommment, likeComment, unlikeComment, deleteComment} from '../../redux/actions/commentAction';
 
 const CommentsCard = ({comment,post}) => {
     const [content,setContent] = useState('');
@@ -26,6 +26,10 @@ const CommentsCard = ({comment,post}) => {
     const styleCard = {
         opacity: comment._id ? 1 :0.5 ,
         pointerEvents: comment._id ? 'inherit':'none'
+    }
+
+    const handleDelete = () => {
+        dispatch(deleteComment({post,comment,auth}))
     }
 
     const handleLike = async() => {
@@ -106,7 +110,7 @@ const CommentsCard = ({comment,post}) => {
                     </div>
                 </div>
                 <div className="d-flex align-items-center mx-1">
-                    <CommentMenu post={post} comment={comment} auth={auth} setOnEdit={setOnEdit}/>
+                    <CommentMenu post={post} comment={comment} auth={auth} setOnEdit={setOnEdit} handleDelete={handleDelete}/>
                     <span style={{cursor: 'pointer'}}>
                         <LikeButton  isLike={isLike} handleLike={handleLike} handleUnlike={handleUnlike}/>
                     </span>

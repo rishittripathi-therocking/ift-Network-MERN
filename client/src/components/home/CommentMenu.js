@@ -1,7 +1,8 @@
 import React from 'react';
 
-const CommentMenu = ({post, comment,auth, setOnEdit}) => {
+const CommentMenu = ({post, comment,auth, setOnEdit,handleDelete}) => {
     const MenuItem = () => {
+        
         return(
             <React.Fragment>
                 <div className="dropdown-item" onClick={()=>setOnEdit(true)}>
@@ -9,7 +10,7 @@ const CommentMenu = ({post, comment,auth, setOnEdit}) => {
                         create
                     </span> Edit
                 </div>
-                <div className="dropdown-item">
+                <div className="dropdown-item" onClick={handleDelete}>
                     <span className="material-icons">
                         delete_outline
                     </span> Remove

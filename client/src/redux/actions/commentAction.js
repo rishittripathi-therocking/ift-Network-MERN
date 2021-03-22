@@ -1,6 +1,6 @@
 import {GLOBALTYPES,EditData, DeleteData} from './globalType';
 import {POST_TYPES} from './postAction';
-import {postDataAPI,patchDataAPI} from '../../utils/fetchData';
+import {postDataAPI,patchDataAPI, deleteDataAPI} from '../../utils/fetchData';
 
 
 export const createComment = ({post,newComment,auth}) => async(dispatch) => {
@@ -51,6 +51,22 @@ export const unlikeComment = ({comment,post,auth}) => async(dispatch) => {
     dispatch({type: POST_TYPES.UPDATE_POST, payload: newPost});
     try {
         await patchDataAPI(`comment/${comment._id}/unlike`,null,auth.token);
+    } catch(err){
+        dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});
+        dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
+    }
+}
+
+export const deleteComment = ({comment,post,auth}) => async(dispatch) => {
+    const newComments = DeleteData(post.comments, comment._id);
+    const newPost = {...post, comments: newComments}
+    dispatch({type: POST_TYPES.UPDATE_POST, payload: newPost});
+    try {
+        dispatch({type: GLOBALTYPES.ALERT, payload: {loading: true}});
+        const res = await deleteDataAPI(`comment/${comment._id}/delete`,auth.token);
+        dispatch({type: GLOBALTYPES.ALERT, payload: {loading: false}});
+        dispatch({type: GLOBALTYPES.ALERT, payload: {success: res.data.msg}});
+        dispatch({type: GLOBALTYPES.ALERT, payload:{}});
     } catch(err){
         dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});
         dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
