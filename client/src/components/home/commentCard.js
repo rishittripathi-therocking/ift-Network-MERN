@@ -4,13 +4,16 @@ import {Link} from 'react-router-dom';
 import moment from 'moment';
 import CommentMenu from './CommentMenu';
 import LikeButton from '../LikeButton';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {updateCommment} from '../../redux/actions/commentAction';
 
 const CommentsCard = ({comment,post}) => {
     const [content,setContent] = useState('');
     const [readMore, setReadMore] = useState(false);
     const {auth} = useSelector(state=>state);
     const [isLike, setIsLike] = useState(false);
+    const [onEdit,setOnEdit] = useState(false);
+    const dispatch = useDispatch(); 
 
     useEffect(()=>{
         setContent(comment.content);
@@ -29,7 +32,14 @@ const CommentsCard = ({comment,post}) => {
         setIsLike(false);
     }
 
-    
+    const handleUpdate = () => {
+        if(comment.content !== content){
+            dispatch(updateCommment({comment,post,content,auth}));
+            setOnEdit(false);
+        } else {
+            setOnEdit(false);
+        }
+    }
 
     return (
         <div className="comment_card " style={styleCard}>
@@ -39,20 +49,24 @@ const CommentsCard = ({comment,post}) => {
             </Link>
             <div className="comment_content">
                 <div className="flex-fill">
-                    <div>
-                        <span>
-                            {
-                                content.length < 100 ?content:
-                                readMore ? content + '' : content.slice(0,100) + '...'
-                            }
-                        </span>
-                        {
-                            content.length > 100 &&
-                            <span className="readMore" onClick={()=>setReadMore(!readMore)}>
-                                {readMore? 'Hide Comment' : 'Read Comment'}
+                    {
+                        onEdit ? <textarea name="" id="" cols="" rows="5" value={content} onChange={e=>setContent(e.target.value)}/>:
+                        <div>
+                            <span>
+                                {
+                                    content.length < 100 ?content:
+                                    readMore ? content + '' : content.slice(0,100) + '...'
+                                }
                             </span>
-                        }
-                    </div>
+                            {
+                                content.length > 100 &&
+                                <span className="readMore" onClick={()=>setReadMore(!readMore)}>
+                                    {readMore? 'Hide Comment' : 'Read Comment'}
+                                </span>
+                            }
+                        </div>
+                    }
+                    
                     <div style={{cursor: 'pointer'}}>
                         <small className="text-muted mr-3" >
                             {moment(comment.createdAt).fromNow()}
@@ -60,13 +74,27 @@ const CommentsCard = ({comment,post}) => {
                         <small className="font-weight-bold mr-3" >
                             {comment.likes.length} likes
                         </small>
-                        <small className="font-weight-bold mr-3">
-                            reply
-                        </small>
+                        {
+                            onEdit ?
+                            <>
+                                <small className="font-weight-bold mr-3" onClick={handleUpdate}>
+                                    Update
+                                </small>
+                                <small className="font-weight-bold mr-3" onClick={()=>setOnEdit(false)}>
+                                    Cancel
+                                </small>
+                            </>
+    
+                            :
+                            <small className="font-weight-bold mr-3">
+                                reply
+                            </small>
+                        }
+                        
                     </div>
                 </div>
                 <div className="d-flex align-items-center mx-1">
-                    <CommentMenu post={post} comment={comment} auth={auth}/>
+                    <CommentMenu post={post} comment={comment} auth={auth} setOnEdit={setOnEdit}/>
                     <LikeButton style={{cursor: 'pointer'}} isLike={isLike} handleLike={handleLike} handleUnlike={handleUnlike}/>
                 </div>
             </div>

@@ -18,7 +18,16 @@ const commentController = {
         } catch(err) {
             return res.status(500).json({msg: err.message});
         }
-    }
+    },
+    updateComment: async(req,res) => {
+        try{
+            const {content} = req.body;
+            await Comments.findOneAndUpdate({_id: req.params.id, user: req.user._id},{content});
+            res.json({msg: "Comment Updated Succesfully"})
+         } catch(err) {
+            return res.status(500).json({msg: err.message});
+         }
+     }
 }
 
 module.exports = commentController;
