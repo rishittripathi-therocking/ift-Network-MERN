@@ -15,6 +15,13 @@ const postDiscoverReducer = (state = initial, action) => {
                 loading: action.payload
             };
         case POST_DISCOVER_TYPES.GET_ALL_POSTS:
+            
+            return {
+                ...state,
+                posts: action.payload.posts,
+                result: action.payload.result
+            };
+        case POST_DISCOVER_TYPES.GET_USER_POSTS:
             return {
                 ...state,
                 posts: action.payload.posts,
