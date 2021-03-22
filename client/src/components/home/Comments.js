@@ -3,6 +3,7 @@ import CommentDisplay from './commentDisplay';
 
 const Comments = ({post}) => {
     const [viewComment,setViewComment] = useState(false);
+    
     return (
         <>
             <h6 onClick={()=> setViewComment(!viewComment)} style={{color:'crimson', paddingLeft:'23px', cursor:'pointer'}}>

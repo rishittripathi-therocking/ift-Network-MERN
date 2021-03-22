@@ -5,7 +5,7 @@ import moment from 'moment';
 import CommentMenu from './CommentMenu';
 import LikeButton from '../LikeButton';
 import { useDispatch, useSelector } from 'react-redux';
-import {updateCommment} from '../../redux/actions/commentAction';
+import {updateCommment, likeComment, unlikeComment} from '../../redux/actions/commentAction';
 
 const CommentsCard = ({comment,post}) => {
     const [content,setContent] = useState('');
@@ -13,11 +13,15 @@ const CommentsCard = ({comment,post}) => {
     const {auth} = useSelector(state=>state);
     const [isLike, setIsLike] = useState(false);
     const [onEdit,setOnEdit] = useState(false);
+    const [loadLike, setLoadLike] = useState(false);
     const dispatch = useDispatch(); 
 
     useEffect(()=>{
         setContent(comment.content);
-    },[comment]);
+        if(comment.likes.find(like=>like._id === auth.user._id)){
+            setIsLike(true);
+        }
+    },[comment,auth.user._id]);
 
     const styleCard = {
         opacity: comment._id ? 1 :0.5 ,
@@ -25,11 +29,19 @@ const CommentsCard = ({comment,post}) => {
     }
 
     const handleLike = async() => {
+        if(loadLike) return;
         setIsLike(true);
+        setLoadLike(true);
+        dispatch(likeComment({comment,post,auth}));
+        setLoadLike(false);
     }
 
     const handleUnlike = async() => {
+        if(loadLike) return;
         setIsLike(false);
+        setLoadLike(true);
+        dispatch(unlikeComment({comment,post,auth}));
+        setLoadLike(false);
     }
 
     const handleUpdate = () => {
@@ -95,7 +107,9 @@ const CommentsCard = ({comment,post}) => {
                 </div>
                 <div className="d-flex align-items-center mx-1">
                     <CommentMenu post={post} comment={comment} auth={auth} setOnEdit={setOnEdit}/>
-                    <LikeButton style={{cursor: 'pointer'}} isLike={isLike} handleLike={handleLike} handleUnlike={handleUnlike}/>
+                    <span style={{cursor: 'pointer'}}>
+                        <LikeButton  isLike={isLike} handleLike={handleLike} handleUnlike={handleUnlike}/>
+                    </span>
                 </div>
             </div>
         </div>
