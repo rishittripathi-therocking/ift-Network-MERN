@@ -2,23 +2,29 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {createComment} from '../../redux/actions/commentAction';
 
-const InputComment = ({children,post}) => {
+const InputComment = ({children,post,giveReply,setGiveReply}) => {
     const [content,setContent] = useState('');
     const dispatch = useDispatch();
     const {auth} = useSelector(state=>state);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(!content.trim()) return;
+        if(!content.trim()){
+            if(setGiveReply) return setGiveReply(false);
+            return ;
+        }
 
         setContent('');
         const newComment = {
             content,
             likes: [],
             user: auth.user,
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
+            reply: giveReply && giveReply.commentId,
+            tag: giveReply && giveReply.user
         }
         dispatch(createComment({post,newComment,auth}));
+        if(setGiveReply) return setGiveReply(false);
     }
 
     return (

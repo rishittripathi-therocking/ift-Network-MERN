@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {updateCommment, likeComment, unlikeComment, deleteComment} from '../../redux/actions/commentAction';
 import InputComment from './inputComment';
 
-const CommentsCard = ({comment,post, commentId}) => {
+const CommentsCard = ({children,comment,post, commentId}) => {
     const [content,setContent] = useState('');
     const [readMore, setReadMore] = useState(false);
     const {auth} = useSelector(state=>state);
@@ -128,8 +128,14 @@ const CommentsCard = ({comment,post, commentId}) => {
             </div>
             {
                 giveReply && 
-                <InputComment />
+                <InputComment post={post} giveReply={giveReply} setGiveReply={setGiveReply}>
+                    <Link to={`/profile/${giveReply.user._id}`} className="mr-1">
+                        @{giveReply.user.username}:
+                    </Link>
+                </InputComment>
+
             }
+            {children}
         </div>
     )
 }
