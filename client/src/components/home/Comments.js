@@ -13,7 +13,7 @@ const Comments = ({post}) => {
         <>
             <h6 onClick={()=> setViewComment(!viewComment)} style={{color:'crimson', paddingLeft:'23px', cursor:'pointer'}}>
                 {
-                    viewComment ? 'Hide All Comments ' : `View all ${post.comments.length} Comments ... `
+                    viewComment ? 'Hide All Comments ' : `View all ${post.comments.filter(cm=>!cm.reply).length} Comments ... `
                 }
             </h6>
             {

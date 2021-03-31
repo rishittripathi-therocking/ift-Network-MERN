@@ -78,6 +78,12 @@ const CommentsCard = ({children,comment,post, commentId}) => {
                     {
                         onEdit ? <textarea name="" id="" cols="" rows="5" value={content} onChange={e=>setContent(e.target.value)}/>:
                         <div>
+                            {
+                                comment.tag && comment.tag._id !== comment.user._id && 
+                                <Link to={`profile/${comment.tag._id}`} className="mr-1">
+                                    @{comment.tag.username}
+                                </Link>
+                            }
                             <span>
                                 {
                                     content.length < 100 ?content:
