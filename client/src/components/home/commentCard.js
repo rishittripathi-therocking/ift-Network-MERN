@@ -31,7 +31,9 @@ const CommentsCard = ({children,comment,post, commentId}) => {
     }
 
     const handleDelete = () => {
-        dispatch(deleteComment({post,comment,auth}))
+        if(post.user._id === auth.user._id || comment.user._id === auth.user._id){
+            dispatch(deleteComment({post,comment,auth}))
+        }
     }
 
     const handleLike = async() => {
