@@ -6,14 +6,16 @@ import CommentMenu from './CommentMenu';
 import LikeButton from '../LikeButton';
 import { useDispatch, useSelector } from 'react-redux';
 import {updateCommment, likeComment, unlikeComment, deleteComment} from '../../redux/actions/commentAction';
+import InputComment from './inputComment';
 
-const CommentsCard = ({comment,post}) => {
+const CommentsCard = ({comment,post, commentId}) => {
     const [content,setContent] = useState('');
     const [readMore, setReadMore] = useState(false);
     const {auth} = useSelector(state=>state);
     const [isLike, setIsLike] = useState(false);
     const [onEdit,setOnEdit] = useState(false);
     const [loadLike, setLoadLike] = useState(false);
+    const [giveReply, setGiveReply] = useState(false);
     const dispatch = useDispatch(); 
 
     useEffect(()=>{
@@ -55,6 +57,14 @@ const CommentsCard = ({comment,post}) => {
         } else {
             setOnEdit(false);
         }
+    }
+
+    const handleReply = () => {
+        if(giveReply){
+            return setGiveReply(false);
+        }
+        setGiveReply({...comment,commentId});
+
     }
 
     return (
@@ -102,8 +112,8 @@ const CommentsCard = ({comment,post}) => {
                             </>
     
                             :
-                            <small className="font-weight-bold mr-3">
-                                reply
+                            <small className="font-weight-bold mr-3" onClick={handleReply}>
+                                {giveReply ? 'cancle' : 'reply'}
                             </small>
                         }
                         
@@ -116,6 +126,10 @@ const CommentsCard = ({comment,post}) => {
                     </span>
                 </div>
             </div>
+            {
+                giveReply && 
+                <InputComment />
+            }
         </div>
     )
 }
