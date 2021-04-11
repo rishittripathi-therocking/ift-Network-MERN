@@ -3,6 +3,7 @@ import Posts from '../components/home/Posts';
 import Status from '../components/home/Status';
 import {useSelector} from 'react-redux';
 import LoadIcon from '../images/loading.gif';
+import RightSideBar from '../components/home/RightSideBar';
  
 const Home = () => {
     const {homePosts} = useSelector(state =>  state);
@@ -24,7 +25,7 @@ const Home = () => {
                 
             </div>
             <div className="col-md-4">
-                
+                <RightSideBar />
             </div>
         </div>
     )
