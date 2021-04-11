@@ -121,6 +121,11 @@
     left: 60px;
   }
 
+  .profile {
+    width: 100%;
+    min-height: 100vh;
+  }
+
   .info {
       width: 100%;
       max-width: 800px;
@@ -201,6 +206,32 @@
     left: 50%;
     transform: translate(-50%,-50%);
     overflow: auto;
+  }
+
+  .profile_tab {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+  }
+
+  .profile_tab button {
+    outline: none;
+    border: none;
+    background: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 5px 20px;
+    margin: 0 25px;
+    opacity: 0.5;
+  }
+
+  .profile_tab button.active{
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    opacity: 0.8;
   }
 
   

@@ -190,6 +190,17 @@ const postController = {
         } catch(err) {
             return res.status(500).json({msg: err.message});
         }
+    },
+    getsavePosts: async(req,res) => {
+        try {
+            const savePosts = await Posts.find({_id:{$in: req.user.saved}}).sort("-createdAt");
+            res.json({
+                savePosts,
+                result: savePosts.length
+            });
+        } catch(err) {
+            return res.status(500).json({msg: err.message});
+        }
     }
 }
 
