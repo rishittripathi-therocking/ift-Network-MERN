@@ -15,6 +15,7 @@ const CardHeader = ({post}) => {
         dispatch({type: GLOBALTYPES.STATUS, payload: {...post, onEdit:true}});
     }
     const handleDeletePost = () => {
+        if(window.confirm("Do You Really want to delete this post?"))
         dispatch(deletePost({post,auth}));
         return history.push("/");
     }
