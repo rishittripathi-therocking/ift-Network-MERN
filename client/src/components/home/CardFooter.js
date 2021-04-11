@@ -41,9 +41,9 @@ const CardFooter = ({post}) => {
             <div className="card_icon_menu">
                 <div>
                     <LikeButton isLike={isLike} handleLike={handleLike} handleUnlike={handleUnlike}/>
-                    {/*<Link to={`/post/${post._id}`} className="text-dark">
+                    <Link to={`/post/${post._id}`} className="text-dark">
                         <i className="far fa-comment"/>
-                    </Link>*/}
+                    </Link>
                     <img src={Send} alt="send" />
                 </div>
                 <i className="far fa-bookmark"/>

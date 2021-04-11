@@ -8,6 +8,7 @@ router.route('/posts')
 
 router.route('/posts/:id')
     .patch(auth,postController.updatePosts)
+    .get(auth, postController.getPost)
     .delete(auth,postController.deletePost);
 
 router.get('/all/posts',auth,postController.getAllPost);

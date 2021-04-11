@@ -9,6 +9,7 @@ export const POST_TYPES = {
     GET_POSTS: 'GET_POSTS',
     UPDATE_POST: 'UPDATE_POST',
     DELETE_POST: 'DELETE_POST',
+    GET_POST: 'GET_POST'
 }
 
 export const createPost = ({content, images, auth}) => async(dispatch) => {
@@ -109,4 +110,17 @@ export const deletePost = ({post,auth}) => async(dispatch) => {
         dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
     }
 } 
+
+export const getPost = ({detailPost, id, auth}) => async (dispatch) => {
+    if(detailPost.every(post => post._id !== id)){
+        try {
+            const res = await getDataAPI(`posts/${id}`, auth.token);
+            dispatch({type: POST_TYPES.GET_POST, payload: res.data.post});
+            
+        } catch(err) {
+            dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});
+            dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
+        }
+    }
+}
 
