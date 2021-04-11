@@ -5,9 +5,9 @@ const initial = {
     users: []
 }
 
-const suggestionsReducer = (state= initial, action) => {
-    switch(action){
-        case SUGGESTION_TYPES.LOADING_SUGGESTION: 
+const suggestionsReducer = (state = initial, action) => {
+    switch(action.type){
+        case SUGGESTION_TYPES.LOADING_SUGGESTION:
             return {
                 ...state,
                 loading: action.payload
