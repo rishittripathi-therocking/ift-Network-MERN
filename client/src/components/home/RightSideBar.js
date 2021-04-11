@@ -4,19 +4,23 @@ import UserCard from '../usercard';
 import FollowBtn from '../profile/FollowButton';
 import LoadIcon from '../../images/loading.gif';
 import {Link} from 'react-router-dom';
+import {getSuggestion} from '../../redux/actions/suggestionAction';
 
 const RightSideBar = () => {
     const {auth, suggestionUser } = useSelector(state=>state);
     const dispatch = useDispatch();
 
     return (
-        <div>
+        <div className="my-4">
             <Link  className="nav-link" to={`/profile/${auth.user._id}`}>
                 <UserCard user={auth.user} />
             </Link>
             <div className="d-flex justify-content-between align-items-center my-2">
                 <h5 className="text-danger">Suggestions for you</h5>
-                <i className="fas fa-redo"/>
+                {
+                    !suggestionUser.loading && <i className="fas fa-redo" style={{cursor: 'pointer'}} onClick={()=>dispatch(getSuggestion(auth.token))}/>
+                }
+                
             </div>
             {
                 suggestionUser.loading
@@ -24,17 +28,29 @@ const RightSideBar = () => {
                     :<div>
                         {
                             suggestionUser.users.map((user,ind) => (
-                                <div key={ind} style={{paddingBottom: (ind===suggestionUser.users.length-1)?'35px':''}} className="d-flex mr-4">
-                                    <Link  className="nav-link align-items-center justify-content-between" to={`/profile/${user._id}`} >
+                                <div key={ind}  className="d-flex align-items-center justify-content-between bg-light border pr-3">
+                                    <Link  className="nav-link " to={`/profile/${user._id}`} >
                                         <UserCard user={user} border='' />
                                     </Link>
-                                    <FollowBtn user={user} />
+                                    <FollowBtn user={user} buttonType="small"/>
                                 </div>
                             ))
                         }
                     </div>
 
             }
+            <div style={{paddingBottom:'35px'}} style={{opacity: 0.5}} className="my-2">
+                <a href="https://www.youtube.com/channel/UCH-XIJiUKH6pD8noP06VT6Q" target="_blank" rel="noreferror">
+                https://www.youtube.com/channel/UCH-XIJiUKH6pD8noP06VT6Q
+                </a>
+                <small className="d-block">
+                    Welcome to my Channel "Programming Snippets"
+                </small>
+                <small>
+                    &copy; 2021 IFT-NETWORK FROM Rishit/Programming Snippets
+                </small>
+
+            </div>
         </div>
     )
 }
