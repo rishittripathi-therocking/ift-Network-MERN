@@ -1,19 +1,25 @@
 import React from 'react';
 import Avatar from '../Avatar';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import {GLOBALTYPES} from '../../redux/actions/globalType';
 import {deletePost} from '../../redux/actions/postAction';
+import {BASE_URL} from '../../utils/config';
 
 const CardHeader = ({post}) => {
     const {auth} = useSelector(state=>state);
     const dispatch = useDispatch();
+    const history = useHistory();
     const handleEditPost = () => {
         dispatch({type: GLOBALTYPES.STATUS, payload: {...post, onEdit:true}});
     }
     const handleDeletePost = () => {
         dispatch(deletePost({post,auth}));
+        return history.push("/");
+    }
+    const handleCopyLink = () => {
+        navigator.clipboard.writeText(`${BASE_URL}/post/${post._id}`);
     }
     return (
         <div className="card_header">
@@ -46,7 +52,7 @@ const CardHeader = ({post}) => {
                             </div>
                         </React.Fragment>
                     }
-                    <div className="dropdown-item">
+                    <div className="dropdown-item" onClick={handleCopyLink}>
                         <span className="material-icons">content_copy</span> Copy Link
                     </div>
 
