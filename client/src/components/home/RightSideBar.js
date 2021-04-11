@@ -11,7 +11,7 @@ const RightSideBar = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className="my-4">
+        <div className="mt-3">
             <Link  className="nav-link" to={`/profile/${auth.user._id}`}>
                 <UserCard user={auth.user} />
             </Link>
@@ -39,9 +39,9 @@ const RightSideBar = () => {
                     </div>
 
             }
-            <div style={{paddingBottom:'35px'}} style={{opacity: 0.5}} className="my-2">
+            <div style={{opacity: 0.5, paddingBottom:'60px'}} className="my-2">
                 <a href="https://www.youtube.com/channel/UCH-XIJiUKH6pD8noP06VT6Q" target="_blank" rel="noreferror">
-                https://www.youtube.com/channel/UCH-XIJiUKH6pD8noP06VT6Q
+                    youtube.com/ProgrammingSnippets
                 </a>
                 <small className="d-block">
                     Welcome to my Channel "Programming Snippets"
