@@ -5,8 +5,9 @@ import ProfileButton from '../profile/FollowButton';
 import {Link} from 'react-router-dom';
 
 const RightSideBar = () => {
-    const {auth} = useSelector(state=>state);
+    const {auth, suggestionUser } = useSelector(state=>state);
     const dispatch = useDispatch();
+    
     return (
         <div>
             <Link  className="nav-link" to={`/profile/${auth.user._id}`}>

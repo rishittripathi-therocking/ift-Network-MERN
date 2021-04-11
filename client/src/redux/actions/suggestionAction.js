@@ -12,7 +12,7 @@ export const getSuggestion = (token) => async(dispatch) => {
         dispatch({type: SUGGESTION_TYPES.LOADING_SUGGESTION, payload: true});
 
         const res = await getDataAPI('suggestionsUser', token);
-        console.log(res);
+        dispatch({type: SUGGESTION_TYPES.GET_USERS, payload: res.data});
         dispatch({type: SUGGESTION_TYPES.LOADING_SUGGESTION, payload: false});
     } catch(err) {
         dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});

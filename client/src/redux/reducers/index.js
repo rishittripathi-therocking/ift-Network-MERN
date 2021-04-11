@@ -7,6 +7,7 @@ import status from './statusReducer';
 import homePosts from './postReducer';
 import modal from './modalReducer';
 import discoverPosts from './postDiscoverReducer';
+import suggestionUser from './suggestionReducer';
 
 export default combineReducers({
     auth,
@@ -16,5 +17,6 @@ export default combineReducers({
     status,
     homePosts,
     modal,
-    discoverPosts
+    discoverPosts,
+    suggestionUser
 })
