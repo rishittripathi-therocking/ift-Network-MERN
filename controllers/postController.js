@@ -180,6 +180,17 @@ const postController = {
             return res.status(500).json({msg: err.message});
         }
     },
+    unsavePost: async(req,res) => {
+        try {
+            const saved = await Users.findOneAndUpdate({_id: req.user._id}, {
+                $pull: {saved: req.params.id}
+            },{new: true})
+            if(!saved) return res.status(400).json({msg: "This user does not exist"});
+            res.json({msg: 'You unsaved Posts'}); 
+        } catch(err) {
+            return res.status(500).json({msg: err.message});
+        }
+    }
 }
 
 module.exports = postController;
