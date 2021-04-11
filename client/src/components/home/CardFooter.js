@@ -5,13 +5,14 @@ import Send from '../../images/send.svg';
 import ShareModal from './ShareModal';
 import LikeButton from '../LikeButton';
 import {BASE_URL} from '../../utils/config';
-import {likePost, unlikePost} from '../../redux/actions/postAction';
+import {likePost, unlikePost, savePost, unsavePost} from '../../redux/actions/postAction';
 
 const CardFooter = ({post}) => {
     const [isLike, setIsLike] = useState(false);
     const [loadLike, setLoadLike] = useState(false);
     const [isShare, setIsShare] = useState(false);
     const {auth, theme} = useSelector(state=>state);
+    const [saved, setSaved] = useState(false);
     const dispatch = useDispatch();
     useEffect(()=>{
         if(post.likes.length>0){
@@ -39,6 +40,15 @@ const CardFooter = ({post}) => {
         await dispatch(unlikePost({ post, auth }));
         setLoadLike(false);
     }
+
+    useEffect(()=>{
+        if(auth.user.saved.find(id => id === post._id)){
+            setSaved(true);
+        }
+        else{
+            setSaved(false);
+        }
+    },[auth.user.saved, post._id])
     return (
         <div className="card_footer">
             <div className="card_icon_menu">
@@ -49,7 +59,10 @@ const CardFooter = ({post}) => {
                     </Link>
                     <img src={Send} alt="send" onClick={()=>setIsShare(!isShare)}/>
                 </div>
-                <i className="far fa-bookmark"/>
+                {
+                    saved ? <i className="fas fa-bookmark text-info" onClick={()=>{setSaved(false); dispatch(unsavePost({post,auth}))}}/>:<i className="far fa-bookmark" onClick={()=>{setSaved(true); dispatch(savePost({post,auth}));}}/>
+                }
+                
             </div>
             <div className="row justify-content-between mx-0">
                 <h6 style={{padding: '0 20px', cursor:'pointer'}}>

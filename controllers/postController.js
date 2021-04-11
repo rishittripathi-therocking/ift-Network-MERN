@@ -1,6 +1,7 @@
 const { findOne } = require('../models/postModel');
 const Posts = require('../models/postModel');
 const Comments = require('../models/commentModel');
+const Users = require('../models/userModel');
 
 const postController = {
     createPost: async(req,res) => {
@@ -165,9 +166,20 @@ const postController = {
         } catch(err) {
             return res.status(500).json({msg: err.message});
         }
-    }
-
-    
+    },
+    savePost: async(req,res) => {
+        try {
+            const user = await Users.find({_id: req.user._id, saved: req.params.id});
+            if(user.length > 0) return res.status(400).json({msg: "You Already saved this Post"});
+            const saved = await Users.findOneAndUpdate({_id: req.user._id}, {
+                $push: {saved: req.params.id}
+            },{new: true})
+            if(!saved) return res.status(400).json({msg: "This Post does not exist"});
+            res.json({msg: 'You Saved Posts'}); 
+        } catch(err) {
+            return res.status(500).json({msg: err.message});
+        }
+    },
 }
 
 module.exports = postController;

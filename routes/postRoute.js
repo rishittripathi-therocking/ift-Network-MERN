@@ -16,5 +16,6 @@ router.get('/all/posts/:id',auth,postController.getUserPost);
 
 router.patch('/post/:id/like',auth,postController.likePost);
 router.patch('/post/:id/unlike',auth,postController.unlikePost);
+router.patch('/savePost/:id',auth, postController.savePost);
 
 module.exports = router;

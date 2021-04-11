@@ -124,3 +124,18 @@ export const getPost = ({detailPost, id, auth}) => async (dispatch) => {
     }
 }
 
+export const savePost = ({post,auth}) => async(dispatch) => {
+    const newUser = {...auth.user, saved: [...auth.user.saved, post._id]};
+    dispatch({type: GLOBALTYPES.AUTH, payload: {...auth, user: newUser}});
+    try {
+        await patchDataAPI(`savePost/${post._id}`,null, auth.token);
+    } catch(err) {
+        dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});
+        dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
+    }
+}
+
+export const unsavePost = ({post,auth}) => async(dispatch) => {
+    
+}
+
