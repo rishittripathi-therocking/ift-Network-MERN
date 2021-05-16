@@ -9,6 +9,13 @@ app.use(express.json());
 app.use(cookieparser());
 app.use(cors());
 
+//Socket
+const http = require('http').createServer(app)
+const io = require('socket.io')(http)
+io.on('connection',socket=>{
+    console.log(socket.id + ' Connected');
+})
+
 app.use('/socialapi', require('./routes/authRoute'));
 app.use('/socialapi', require('./routes/userRoute'));
 app.use('/socialapi', require('./routes/postRoute'));
@@ -29,6 +36,6 @@ mongoose.connect(URI, {
 
 const PORT = process.env.PORT || 5000
 
-app.listen(PORT,()=>{
+http.listen(PORT,()=>{
     console.log(`Server is listening on ${PORT}`);
 });

@@ -14,6 +14,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {refreshToken} from './redux/actions/authAction';
 import {getPosts} from './redux/actions/postAction';
 import {getSuggestion} from './redux/actions/suggestionAction';
+import io from 'socket.io-client'; 
+import { GLOBALTYPES } from './redux/actions/globalType';
 
 toast.configure();
 function App() {
@@ -21,6 +23,9 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(refreshToken());
+    const socket = io();
+    dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
+    return ()=> socket.close()
   },[dispatch]);
 
   useEffect(() => {
