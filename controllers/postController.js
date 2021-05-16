@@ -110,7 +110,7 @@ const postController = {
         try {
             const posts = await Posts.find({})
             .sort('-createdAt')
-            .populate('user likes','avatar username fullname')
+            .populate('user likes','avatar username fullname followers')
             .populate({
                 path: 'comments',
                 populate: {
@@ -132,7 +132,7 @@ const postController = {
             const id=req.params.id;
             const posts = await Posts.find({user:id})
             .sort('-createdAt')
-            .populate('user likes','avatar username fullname')
+            .populate('user likes','avatar username fullname followers')
             .populate({
                 path: 'comments',
                 populate: {
