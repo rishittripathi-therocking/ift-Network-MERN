@@ -43,13 +43,21 @@ const SocketClient = () => {
     },[socket])
 
     // Follow
-
     useEffect(() => {
         socket.on('followToClient', newUser => {
             dispatch({type: GLOBALTYPES.AUTH, payload: {...auth, user: newUser}})
         })
         return () => socket.off('followToClient');
     },[socket])
+
+    //unfollow
+    useEffect(() => {
+        socket.on('unfollowToClient', newUser => {
+            dispatch({type: GLOBALTYPES.AUTH, payload: {...auth, user: newUser}})
+        })
+        return () => socket.off('unfollowToClient');
+    },[socket])
+
 
     return <></>
 }
