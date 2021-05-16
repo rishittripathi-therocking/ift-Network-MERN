@@ -13,11 +13,11 @@ const Posts = ({auth, dispatch}) => {
         getDataAPI('getSavePosts', auth.token)
         .then(res => {
             setSavedPosts(res.data.savePosts);
-        }).
-        catch(err => {
+        })
+        .catch(err => {
             dispatch({type: GLOBALTYPES.ALERT, payload: {eroor: err.response.data.msg}})
         })
-    },[])
+    },[auth.token, dispatch])
     return (
         <React.Fragment>
             <div className="profile_posts" style={{paddingBottom: '40px'}}>

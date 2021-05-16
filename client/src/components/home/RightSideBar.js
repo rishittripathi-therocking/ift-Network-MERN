@@ -40,7 +40,7 @@ const RightSideBar = () => {
 
             }
             <div style={{opacity: 0.5, paddingBottom:'60px'}} className="my-2">
-                <a href="https://www.youtube.com/channel/UCH-XIJiUKH6pD8noP06VT6Q" target="_blank" rel="noreferror">
+                <a href="https://www.youtube.com/channel/UCH-XIJiUKH6pD8noP06VT6Q" target="_blank" rel="noreferrer">
                     youtube.com/ProgrammingSnippets
                 </a>
                 <small className="d-block">

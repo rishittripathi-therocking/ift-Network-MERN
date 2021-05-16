@@ -15,7 +15,7 @@ const Profile = () => {
     useEffect(()=>{
         if (auth.token) 
             dispatch(getUserPosts(auth.token,id));
-    },[dispatch,auth.token]);
+    },[dispatch,auth.token, id]);
     const [saveTab, setSaveTab] = useState(false);
     return (
         <div className="profile">

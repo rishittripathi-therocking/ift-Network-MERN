@@ -18,14 +18,14 @@ const SocketClient = () => {
             dispatch({type: POST_TYPES.UPDATE_POST, payload: newPost})
         })
         return () => socket.off('likeToClient');
-    },[socket])
+    },[socket, dispatch])
 
     useEffect(() => {
         socket.on('unLikeToClient', newPost => {
             dispatch({type: POST_TYPES.UPDATE_POST, payload: newPost})
         })
         return () => socket.off('unLikeToClient');
-    },[socket])
+    },[socket,dispatch])
 
     // Comments
     useEffect(() => {
@@ -33,14 +33,14 @@ const SocketClient = () => {
             dispatch({type: POST_TYPES.UPDATE_POST, payload: newPost})
         })
         return () => socket.off('createCommentToClient');
-    },[socket])
+    },[socket,dispatch])
 
     useEffect(() => {
         socket.on('deleteCommentToClient', newPost => {
             dispatch({type: POST_TYPES.UPDATE_POST, payload: newPost})
         })
         return () => socket.off('deleteCommentToClient');
-    },[socket])
+    },[socket,dispatch])
 
     // Follow
     useEffect(() => {
@@ -48,7 +48,7 @@ const SocketClient = () => {
             dispatch({type: GLOBALTYPES.AUTH, payload: {...auth, user: newUser}})
         })
         return () => socket.off('followToClient');
-    },[socket])
+    },[socket,dispatch,auth])
 
     //unfollow
     useEffect(() => {
@@ -56,7 +56,7 @@ const SocketClient = () => {
             dispatch({type: GLOBALTYPES.AUTH, payload: {...auth, user: newUser}})
         })
         return () => socket.off('unfollowToClient');
-    },[socket])
+    },[socket,dispatch,auth])
 
 
     return <></>
