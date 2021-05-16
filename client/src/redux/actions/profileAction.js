@@ -51,10 +51,12 @@ export const updaProfileUser = ({userData, avatar,auth}) => async(dispatch) => {
 
 }
 
-export const follow = ({users,user,auth}) => async(dispatch) => {
+export const follow = ({users,user,auth, socket}) => async(dispatch) => {
     const newUser = {...user,followers: [...user.followers, auth.user]};
     dispatch({type: PROFILE_TYPES.FOLLOW, payload: newUser});
     dispatch({type: GLOBALTYPES.AUTH, payload: {...auth,user: {...auth.user, following: [...auth.user.following, newUser]}}});
+
+    socket.emit('follow', newUser);
     try{
         const res = await patchDataAPI(`user/${user._id}/follow`,null,auth.token);
         dispatch({type: GLOBALTYPES.ALERT, payload: {success: res.data.msg}});
@@ -65,11 +67,13 @@ export const follow = ({users,user,auth}) => async(dispatch) => {
     }
 }
 
-export const unfollow = ({users,user,auth}) => async(dispatch) => {
+export const unfollow = ({users,user,auth, socket}) => async(dispatch) => {
     const newUser = {...user,followers: DeleteData(user.followers, auth.user._id) };
     
     dispatch({type: PROFILE_TYPES.UNFOLLOW, payload: newUser});
     dispatch({type: GLOBALTYPES.AUTH, payload: {...auth,user: {...auth.user, following: DeleteData(auth.user.following, newUser._id)}}});
+
+    socket.emit('unfollow', newUser);
     try{
         const res = await patchDataAPI(`user/${user._id}/unfollow`,null,auth.token);
         dispatch({type: GLOBALTYPES.ALERT, payload: {error: res.data.msg}});
