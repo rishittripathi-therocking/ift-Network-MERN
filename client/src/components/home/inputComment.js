@@ -5,7 +5,7 @@ import {createComment} from '../../redux/actions/commentAction';
 const InputComment = ({children,post,giveReply,setGiveReply}) => {
     const [content,setContent] = useState('');
     const dispatch = useDispatch();
-    const {auth} = useSelector(state=>state);
+    const {auth, socket} = useSelector(state=>state);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,7 +23,7 @@ const InputComment = ({children,post,giveReply,setGiveReply}) => {
             reply: giveReply && giveReply.commentId,
             tag: giveReply && giveReply.user
         }
-        dispatch(createComment({post,newComment,auth}));
+        dispatch(createComment({post,newComment,auth, socket}));
         if(setGiveReply) return setGiveReply(false);
     }
 

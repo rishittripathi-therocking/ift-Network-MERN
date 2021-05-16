@@ -11,7 +11,7 @@ import InputComment from './inputComment';
 const CommentsCard = ({children,comment,post, commentId}) => {
     const [content,setContent] = useState('');
     const [readMore, setReadMore] = useState(false);
-    const {auth} = useSelector(state=>state);
+    const {auth, socket} = useSelector(state=>state);
     const [isLike, setIsLike] = useState(false);
     const [onEdit,setOnEdit] = useState(false);
     const [loadLike, setLoadLike] = useState(false);
@@ -32,7 +32,7 @@ const CommentsCard = ({children,comment,post, commentId}) => {
 
     const handleDelete = () => {
         if(post.user._id === auth.user._id || comment.user._id === auth.user._id){
-            dispatch(deleteComment({post,comment,auth}))
+            dispatch(deleteComment({post,comment,auth, socket}))
         }
     }
 

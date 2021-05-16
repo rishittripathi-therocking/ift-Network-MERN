@@ -3,7 +3,7 @@ import {POST_TYPES} from './postAction';
 import {postDataAPI,patchDataAPI, deleteDataAPI} from '../../utils/fetchData';
 
 
-export const createComment = ({post,newComment,auth}) => async(dispatch) => {
+export const createComment = ({post,newComment,auth, socket}) => async(dispatch) => {
     
     const newPost = {...post, comments: [...post.comments, newComment]}
     dispatch({type: POST_TYPES.UPDATE_POST, payload: newPost});
@@ -13,6 +13,10 @@ export const createComment = ({post,newComment,auth}) => async(dispatch) => {
         const newData = {...res.data.newComment, user: auth.user};
         const newPost = {...post, comments: [...post.comments, newData]}
         dispatch({type: POST_TYPES.UPDATE_POST, payload: newPost});
+
+        // Socket 
+        socket.emit('createComment', newPost);
+
     } catch(err) {
         dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});
         dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
@@ -57,11 +61,13 @@ export const unlikeComment = ({comment,post,auth}) => async(dispatch) => {
     }
 }
 
-export const deleteComment = ({comment,post,auth}) => async(dispatch) => {
+export const deleteComment = ({comment,post,auth, socket}) => async(dispatch) => {
     const deleteArr = [...post.comments.filter(cm => cm.reply===comment._id),comment];
 
     const newPost = {...post, comments: post.comments.filter(cm => !deleteArr.find(da => cm._id===da._id))}
     dispatch({type: POST_TYPES.UPDATE_POST, payload: newPost});
+
+    socket.emit('deleteComment', newPost);
     try {
         dispatch({type: GLOBALTYPES.ALERT, payload: {loading: true}});
         deleteArr.forEach(item => {
