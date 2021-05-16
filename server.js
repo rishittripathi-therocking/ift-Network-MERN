@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieparser = require('cookie-parser');
+const SocketServer = require('./SocketServer');
 
 const app = express();
 app.use(express.json());
@@ -12,8 +13,9 @@ app.use(cors());
 //Socket
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
+
 io.on('connection',socket=>{
-    console.log(socket.id + ' Connected');
+    SocketServer(socket);
 })
 
 app.use('/socialapi', require('./routes/authRoute'));

@@ -16,6 +16,7 @@ import {getPosts} from './redux/actions/postAction';
 import {getSuggestion} from './redux/actions/suggestionAction';
 import io from 'socket.io-client'; 
 import { GLOBALTYPES } from './redux/actions/globalType';
+import SocketClient from './SocketClient';
 
 toast.configure();
 function App() {
@@ -34,6 +35,8 @@ function App() {
       dispatch(getSuggestion(auth.token));
     }
   },[dispatch, auth.token]);
+
+  
 
   return (
     <Router>
@@ -54,6 +57,7 @@ function App() {
         <div className="main">
           {auth.token && <Header />}
           {status && <StatusModal />}
+          {auth.token && <SocketClient />}
           <Switch>
             <Route exact path='/' component={auth.token ? Home : Login} />
             <Route exact path='/register' component={Register} />
