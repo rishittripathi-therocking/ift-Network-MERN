@@ -1,7 +1,7 @@
 import {GLOBALTYPES} from './globalType';
 import {imageUpload} from '../../utils/imageUpload';
 import {postDataAPI, getDataAPI, patchDataAPI ,deleteDataAPI} from '../../utils/fetchData';
-import {createNotify} from './notifyAction';
+import {createNotify ,removeNotify} from './notifyAction';
 
 
 export const POST_TYPES = {
@@ -115,7 +115,7 @@ export const unlikePost = ({post, auth, socket}) => async(dispatch) => {
     
 }
 
-export const deletePost = ({post,auth}) => async(dispatch) => {
+export const deletePost = ({post,auth, socket}) => async(dispatch) => {
     
     try {
         dispatch({type: GLOBALTYPES.ALERT, payload: {loading: true}});
@@ -124,6 +124,13 @@ export const deletePost = ({post,auth}) => async(dispatch) => {
         dispatch({type: GLOBALTYPES.ALERT, payload: {loading: false}});
         dispatch({type: GLOBALTYPES.ALERT, payload: {success: res.data.msg}});
         dispatch({type: GLOBALTYPES.ALERT, payload:{}});
+        const msg = {
+            id: post._id,
+            text: 'deleted the post.',
+            recipients: res.data.newPost.user.followers,
+            url: `/post/${post._id}`,
+        }
+        dispatch(removeNotify({msg, auth, socket}));
     } catch(err) {
         dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});
         dispatch({type:GLOBALTYPES.ALERT ,payload: {}});

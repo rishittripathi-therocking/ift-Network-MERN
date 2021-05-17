@@ -103,7 +103,7 @@ const postController = {
             if(post.err) return res.status(400).json({msg: post.err});
             
 
-            res.json({msg: "You Deleted your Post"});
+            res.json({msg: "You Deleted your Post", newPost: {...post, user: req.user}});
         } catch(err) {
             return res.status(500).json({msg: err.message});
         }
