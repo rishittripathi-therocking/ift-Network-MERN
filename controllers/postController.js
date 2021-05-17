@@ -19,7 +19,10 @@ const postController = {
             
             res.json({
                 msg: 'Post Created',
-                newPost
+                newPost:{
+                    ...newPost._doc,
+                    user: req.user
+                }
             })
         } catch(err) {
             return res.status(500).json({msg: err.message});

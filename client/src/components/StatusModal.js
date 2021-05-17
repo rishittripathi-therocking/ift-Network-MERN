@@ -4,7 +4,7 @@ import {GLOBALTYPES} from '../redux/actions/globalType';
 import {createPost, updatePost} from '../redux/actions/postAction';
 
 const StatusModal = () => {
-    const {auth,theme, status} = useSelector(state=>state);
+    const {auth,theme, status, socket} = useSelector(state=>state);
     const dispatch = useDispatch();
     const [content, setContent] = useState('');
     const [images, setImages] = useState([]);
@@ -77,7 +77,7 @@ const StatusModal = () => {
             dispatch(updatePost({content, images, auth, status}));
         }
         else{
-            dispatch(createPost({content, images, auth}));
+            dispatch(createPost({content, images, auth, socket}));
         }
         setContent('');
         setImages([]);

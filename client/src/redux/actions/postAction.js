@@ -1,6 +1,7 @@
 import {GLOBALTYPES} from './globalType';
 import {imageUpload} from '../../utils/imageUpload';
 import {postDataAPI, getDataAPI, patchDataAPI ,deleteDataAPI} from '../../utils/fetchData';
+import {createNotify} from './notifyAction';
 
 
 export const POST_TYPES = {
@@ -12,7 +13,7 @@ export const POST_TYPES = {
     GET_POST: 'GET_POST'
 }
 
-export const createPost = ({content, images, auth}) => async(dispatch) => {
+export const createPost = ({content, images, auth, socket}) => async(dispatch) => {
     let media = [];
     try {
         dispatch({type: GLOBALTYPES.ALERT, payload: {loading: true}});
@@ -23,6 +24,19 @@ export const createPost = ({content, images, auth}) => async(dispatch) => {
         dispatch({type: POST_TYPES.CREATE_POST, payload: {...res.data.newPost,user: auth.user}});
         
         dispatch({type: GLOBALTYPES.ALERT, payload: {loading: false}});
+
+        //Notify
+        const msg = {
+            id: res.data.newPost._id,
+            text: 'added a new post.',
+            recipients: res.data.newPost.user.followers,
+            url: `/post/${res.data.newPost._id}`,
+            content,
+            image: media[0].url
+        }
+
+        dispatch(createNotify({msg, auth, socket}))
+
     } catch(err) {
         dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});
         dispatch({type:GLOBALTYPES.ALERT ,payload: {}});
