@@ -10,6 +10,7 @@ import discoverPosts from './postDiscoverReducer';
 import suggestionUser from './suggestionReducer';
 import detailPost from './detailPostReducer';
 import socket from './socketReducer';
+import notify from './notifyReducer';
 
 export default combineReducers({
     auth,
@@ -22,5 +23,6 @@ export default combineReducers({
     discoverPosts,
     suggestionUser,
     detailPost,
-    socket
+    socket,
+    notify
 })

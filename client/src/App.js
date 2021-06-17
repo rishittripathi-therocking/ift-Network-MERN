@@ -14,6 +14,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {refreshToken} from './redux/actions/authAction';
 import {getPosts} from './redux/actions/postAction';
 import {getSuggestion} from './redux/actions/suggestionAction';
+import { getNotifies } from './redux/actions/notifyAction';
 import io from 'socket.io-client'; 
 import { GLOBALTYPES } from './redux/actions/globalType';
 import SocketClient from './SocketClient';
@@ -33,6 +34,7 @@ function App() {
     if (auth.token) {
       dispatch(getPosts(auth.token));
       dispatch(getSuggestion(auth.token));
+      dispatch(getNotifies(auth.token));
     }
   },[dispatch, auth.token]);
 
