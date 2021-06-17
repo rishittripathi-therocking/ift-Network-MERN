@@ -73,7 +73,6 @@ const SocketServer = (socket) => {
 
     // Notification
     socket.on('createNotify', msg => {
-        console.log(msg);
         const clients = users.filter(user => msg.recipients.includes(user.id))
 
         if(clients.length > 0) {
@@ -83,7 +82,6 @@ const SocketServer = (socket) => {
         }
     })
     socket.on('removeNotify', msg => {
-        console.log(msg);
         const clients = users.filter(user => msg.recipients.includes(user.id))
 
         if(clients.length > 0) {
