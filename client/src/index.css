@@ -172,6 +172,9 @@ code {
     margin: auto;
     font-size: 1rem;
   }
+  .message {
+    height: calc(100vh - 160px)
+  }
 
 }
 
@@ -189,3 +192,4 @@ code {
 @import url("./styles/inputComment.css");
 @import url("./styles/discoveryDisplay.css");
 @import url("./styles/header.css");
+@import url("./styles/message.css");
