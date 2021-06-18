@@ -36,7 +36,7 @@ const LeftSide = () => {
         setSearch('')
         setSearchUsers([])
         dispatch({type: MESS_TYPES.ADD_USER, payload: {...user, text: '', media: []}})
-        //dispatch({type: MESS_TYPES.CHECK_ONLINE_OFFLINE, payload: online})
+        dispatch({type: MESS_TYPES.CHECK_ONLINE_OFFLINE, payload: online})
         return history.push(`/message/${user._id}`)
     }
 
