@@ -19,7 +19,7 @@ export const addMessage = ({msg, auth, socket}) => async (dispatch) =>{
     dispatch({type: MESS_TYPES.ADD_MESSAGE, payload: msg})
 
     // const { _id, avatar, fullname, username } = auth.user
-    // socket.emit('addMessage', {...msg, user: { _id, avatar, fullname, username } })
+    socket.emit('addMessage', msg)
     
     try {
         await postDataAPI('message', msg, auth.token)
@@ -28,9 +28,9 @@ export const addMessage = ({msg, auth, socket}) => async (dispatch) =>{
     }
 }
 
-export const getConversations = ({auth}) => async (dispatch) => {
+export const getConversations = ({auth, page=1}) => async (dispatch) => {
     try {
-        const res = await getDataAPI(`conversations`, auth.token)
+        const res = await getDataAPI(`conversations?limit=${page*9}`, auth.token)
         
         let newArr = [];
         res.data.conversations.forEach(item => {
@@ -51,9 +51,9 @@ export const getConversations = ({auth}) => async (dispatch) => {
     }
 }
 
-export const getMessages = ({auth, id}) => async (dispatch) => {
+export const getMessages = ({auth, id, page = 1}) => async (dispatch) => {
     try {
-        const res = await getDataAPI(`message/${id}`, auth.token)
+        const res = await getDataAPI(`message/${id}?limit=${page*9}`, auth.token)
         // const newData = {...res.data, messages: res.data.messages.reverse()}
 
         dispatch({type: MESS_TYPES.GET_MESSAGES, payload: res.data})
