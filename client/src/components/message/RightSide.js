@@ -140,6 +140,42 @@ const RightSide = () => {
         }
     }
 
+    // Call
+    const caller = ({video}) => {
+        const { _id, avatar, username, fullname } = user
+
+        const msg = {
+            sender: auth.user._id,
+            recipient: _id, 
+            avatar, username, fullname, video
+        }
+        dispatch({ type: GLOBALTYPES.CALL, payload: msg })
+    }
+
+    const callUser = ({video}) => {
+        const { _id, avatar, username, fullname } = auth.user
+
+        const msg = {
+            sender: _id,
+            recipient: user._id, 
+            avatar, username, fullname, video
+        }
+
+        // if(peer.open) msg.peerId = peer._id
+
+        // socket.emit('callUser', msg)
+    }
+
+    const handleAudioCall = () => {
+        caller({video: false})
+        callUser({video: false})
+    }
+    
+    const handleVideoCall = () => {
+        caller({video: true})
+        callUser({video: true})
+    }
+
     return (
         <React.Fragment>
             <div className="message_header" style={{cursor: 'pointer'}} >
@@ -148,11 +184,11 @@ const RightSide = () => {
                     <UserCard user={user}>
                         <div>
                             <i className="fas fa-phone-alt"
-                                // onClick={handleAudioCall} 
+                                onClick={handleAudioCall} 
                             />
 
                             <i className="fas fa-video mx-3"
-                                // onClick={handleVideoCall} 
+                                onClick={handleVideoCall} 
                             />
 
                             <i className="fas fa-trash text-danger"

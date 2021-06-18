@@ -18,10 +18,12 @@ import { getNotifies } from './redux/actions/notifyAction';
 import io from 'socket.io-client'; 
 import { GLOBALTYPES } from './redux/actions/globalType';
 import SocketClient from './SocketClient';
+import CallModal from './components/message/CallModal';
+
 
 toast.configure();
 function App() {
-  const {auth, status,modal} = useSelector(state => state);
+  const {auth, status,modal, call} = useSelector(state => state);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(refreshToken());
@@ -75,6 +77,7 @@ function App() {
           {auth.token && <Header />}
           {status && <StatusModal />}
           {auth.token && <SocketClient />}
+          {call && <CallModal />}
           <Switch>
             <Route exact path='/' component={auth.token ? Home : Login} />
             <Route exact path='/register' component={Register} />

@@ -28,14 +28,22 @@ const Carousel = ({images, id}) => {
                     }
                     
                 </div>
-                <a className="carousel-control-prev" href={`#image${id}`} role="button" data-slide="prev" style={{filter: theme?'invert(1)':'invert(0)'}} style={{width: '5%'}}>
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span className="sr-only">Previous</span>
-                </a>
-                <a className="carousel-control-next" href={`#image${id}`} role="button" data-slide="next" style={{filter: theme?'invert(1)':'invert(0)'}} style={{width: '5%'}}>
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span className="sr-only">Next</span>
-                </a>
+                
+                {
+                    images.length > 1 && 
+                    <React.Fragment>
+                        <a className="carousel-control-prev" href={`#image${id}`} role="button" data-slide="prev" style={{filter: theme?'invert(1)':'invert(0)'}} style={{width: '5%'}}>
+                            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span className="sr-only">Previous</span>
+                        </a>
+                        <a className="carousel-control-next" href={`#image${id}`} role="button" data-slide="next" style={{filter: theme?'invert(1)':'invert(0)'}} style={{width: '5%'}}>
+                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span className="sr-only">Next</span>
+                        </a>
+                    </React.Fragment>
+                     
+                }
+                
             </div>
     )
 }

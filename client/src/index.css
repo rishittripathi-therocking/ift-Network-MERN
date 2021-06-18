@@ -71,6 +71,12 @@ code {
   border-radius: 50%;
 }
 
+.supper-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
 .header {
   width: 100%;
   min-height: 70px;
@@ -194,3 +200,4 @@ code {
 @import url("./styles/header.css");
 @import url("./styles/message.css");
 @import url("./styles/icons.css");
+@import url("./styles/call_modal.css");
