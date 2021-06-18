@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {GLOBALTYPES} from '../redux/actions/globalType';
 import {createPost, updatePost} from '../redux/actions/postAction';
 import Icons from './emoji';
+import {imageShow, videoShow} from '../utils/mediaShow';
 
 const StatusModal = () => {
     const {auth,theme, status, socket} = useSelector(state=>state);
@@ -95,13 +96,7 @@ const StatusModal = () => {
         }
     },[status]);
 
-    const imageShow = (src) => {
-        return <img src={src}  alt="images" className="img img-responsive img-thumbnail" style={{filter: theme ? 'invert(1)':'invert(0)'}}/>
-    }
-
-    const videoShow = (src) => {
-        return <video controls src={src}  alt="images" className="img img-responsive img-thumbnail" style={{filter: theme ? 'invert(1)':'invert(0)'}}/>
-    }
+    
 
     return (
         <div className="status_modal">
@@ -149,15 +144,15 @@ const StatusModal = () => {
                             images.map((img,ind) => (
                                 <div key={ind} id="file_img">
                                     {
-                                        img.camera ? imageShow(img.camera)
+                                        img.camera ? imageShow(img.camera, theme)
                                                    : img.url ? <>
                                                                     {
-                                                                        img.url.match(/video/i) ? videoShow(img.url) : imageShow(img.url)
+                                                                        img.url.match(/video/i) ? videoShow(img.url, theme) : imageShow(img.url, theme)
                                                                     }
                                                                </>
                                                               : <>
                                                                     {
-                                                                        img.type.match(/video/i) ? videoShow(URL.createObjectURL(img)) : imageShow(URL.createObjectURL(img))
+                                                                        img.type.match(/video/i) ? videoShow(URL.createObjectURL(img), theme) : imageShow(URL.createObjectURL(img), theme)
                                                                     }
                                                                 </>
                                     }
