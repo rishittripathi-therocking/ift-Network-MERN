@@ -115,10 +115,10 @@ const StatusModal = () => {
                     </div>
                 </div>
                 <div className="status_body">
-                    <textarea name="content" placeholder={`${auth.user.username}, what are you thinking`} onChange={e => setContent(e.target.value)} value={content}/>
+                    <textarea name="content" placeholder={`${auth.user.username}, what are you thinking`} onChange={e => setContent(e.target.value)} value={content} style={{ opacity: 1, filter: theme ? 'invert(1)' : 'invert(0)', color: theme ? 'white': 'black', background: theme ?'rgb(0,0,0,0.03)' :'' }}/>
                     <div className="d-flex">
                         <div className="flex-fill"></div>
-                        <Icons setContent={setContent} content={content}/>
+                        <Icons setContent={setContent} content={content} theme={theme}/>
                     </div>
                     <div className="input_images">
                         {

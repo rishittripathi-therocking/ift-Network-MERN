@@ -7,18 +7,18 @@ import Comments from './Comments';
 import InputComment from './inputComment';
 
 const Posts = () => {
-    const {homePosts} = useSelector(state => state);
+    const {homePosts, theme} = useSelector(state => state);
     return (
         <div className="posts">
             {
                 homePosts.posts.map((post,ind)=>(
                     <div className="card my-3" key={ind} >
-                        <CardHeader post={post}/>
-                        <CardBody post={post}/>
-                        <CardFooter post={post}/>
+                        <CardHeader post={post} />
+                        <CardBody post={post} theme={theme}/>
+                        <CardFooter post={post} />
 
                         <Comments post={post} />
-                        <InputComment post={post}/>
+                        <InputComment post={post} />
                     </div>
                 ))
             }
