@@ -63,6 +63,7 @@ export const deleteAllNotifies = (token) => async (dispatch) => {
     try {
         await deleteDataAPI('deleteAllNotify', token)
     } catch (err) {
-        dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}})
+        dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});
+        dispatch({type: GLOBALTYPES.ALERT, payload: {}});
     }
 }
