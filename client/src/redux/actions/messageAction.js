@@ -9,15 +9,15 @@ export const MESS_TYPES = {
     UPDATE_MESSAGES: 'UPDATE_MESSAGES',
     DELETE_MESSAGES: 'DELETE_MESSAGES',
     DELETE_CONVERSATION: 'DELETE_CONVERSATION',
-    // CHECK_ONLINE_OFFLINE: 'CHECK_ONLINE_OFFLINE'
+    CHECK_ONLINE_OFFLINE: 'CHECK_ONLINE_OFFLINE'
 }
 
 
 export const addMessage = ({msg, auth, socket}) => async (dispatch) =>{
     dispatch({type: MESS_TYPES.ADD_MESSAGE, payload: msg})
 
-    // const { _id, avatar, fullname, username } = auth.user
-    socket.emit('addMessage', msg)
+    const { _id, avatar, fullname, username } = auth.user
+    socket.emit('addMessage', {...msg, user: { _id, avatar, fullname, username } })
     
     try {
         await postDataAPI('message', msg, auth.token)
