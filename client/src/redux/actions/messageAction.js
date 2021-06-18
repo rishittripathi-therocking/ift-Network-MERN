@@ -8,7 +8,7 @@ export const MESS_TYPES = {
     GET_MESSAGES: 'GET_MESSAGES',
     UPDATE_MESSAGES: 'UPDATE_MESSAGES',
     DELETE_MESSAGES: 'DELETE_MESSAGES',
-    // DELETE_CONVERSATION: 'DELETE_CONVERSATION',
+    DELETE_CONVERSATION: 'DELETE_CONVERSATION',
     // CHECK_ONLINE_OFFLINE: 'CHECK_ONLINE_OFFLINE'
 }
 
@@ -86,11 +86,12 @@ export const deleteMessages = ({msg, data, auth}) => async (dispatch) => {
     }
 }
 
-// export const deleteConversation = ({auth, id}) => async (dispatch) => {
-//     dispatch({type: MESS_TYPES.DELETE_CONVERSATION, payload: id})
-//     try {
-//         await deleteDataAPI(`conversation/${id}`, auth.token)
-//     } catch (err) {
-//         dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}})
-//     }
-// }
+export const deleteConversation = ({auth, id}) => async (dispatch) => {
+    dispatch({type: MESS_TYPES.DELETE_CONVERSATION, payload: id})
+    try {
+        await deleteDataAPI(`conversation/${id}`, auth.token)
+    } catch (err) {
+        dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}});
+        dispatch({type: GLOBALTYPES.ALERT, payload: {}});
+    }
+}

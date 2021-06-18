@@ -10,7 +10,10 @@ const Posts = ({theme,discoverPosts}) => {
                                 post.images.map((image,index) => (
                                     <Link to={`/post/${post._id}`} key={index}>
                                         <div className="profile_posts_display" >
-                                            <img src={image.url} alt="postimage" style={{filter: theme? 'invert(1)':'invert(0)'}}/>
+                                            {
+                                                image.url.match(/video/i) ? <video controls src={image.url} alt="postimage" style={{filter: theme? 'invert(1)':'invert(0)'}}/> :<img src={image.url} alt="postimage" style={{filter: theme? 'invert(1)':'invert(0)'}}/>
+                                            }
+                                            
                                             <div className="profile_posts_menu">
                                                 <span>
                                                     {post.likes.length} <i className="far fa-heart"/>

@@ -66,12 +66,12 @@ const messageReducer = (state = initialState, action) => {
                     : item
                 )
             };
-        // case MESS_TYPES.DELETE_CONVERSATION:
-        //     return {
-        //         ...state,
-        //         users: DeleteData(state.users, action.payload),
-        //         data: DeleteData(state.data, action.payload)
-        //     };
+        case MESS_TYPES.DELETE_CONVERSATION:
+            return {
+                ...state,
+                users: DeleteData(state.users, action.payload),
+                data: DeleteData(state.data, action.payload)
+            };
         // case MESS_TYPES.CHECK_ONLINE_OFFLINE:
         //     return {
         //         ...state,

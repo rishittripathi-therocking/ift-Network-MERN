@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { GLOBALTYPES } from '../../redux/actions/globalType';
 import { imageShow, videoShow } from '../../utils/mediaShow';
 import { imageUpload } from '../../utils/imageUpload';
 import UserCard from '../usercard';
 import MsgDisplay from './MsgDisplay';
 import Icons from '../emoji';
-import { addMessage, getMessages, loadMoreMessages } from '../../redux/actions/messageAction'
+import { addMessage, getMessages, loadMoreMessages, deleteConversation } from '../../redux/actions/messageAction'
 import LoadIcon from '../../images/loading.gif';
 
 const RightSide = () => {
@@ -24,6 +24,7 @@ const RightSide = () => {
     const [data, setData] = useState([]);
     const [result, setResult] = useState(9);
     const [isLoadMore, setIsLoadMore] = useState(false);
+    const history = useHistory();
 
 
     useEffect(() => {
@@ -132,6 +133,13 @@ const RightSide = () => {
         // eslint-disable-next-line
     },[isLoadMore])
 
+    const handleDeleteConversation = () => {
+        if(window.confirm('Do you want to delete?')){
+            dispatch(deleteConversation({auth, id}))
+            return history.push('/message')
+        }
+    }
+
     return (
         <React.Fragment>
             <div className="message_header" style={{cursor: 'pointer'}} >
@@ -148,7 +156,7 @@ const RightSide = () => {
                             />
 
                             <i className="fas fa-trash text-danger"
-                                // onClick={handleDeleteConversation} 
+                                onClick={handleDeleteConversation} 
                             />
                         </div>
                     </UserCard>
