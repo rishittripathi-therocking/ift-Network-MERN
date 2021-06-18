@@ -7,7 +7,7 @@ import { imageUpload } from '../../utils/imageUpload';
 import UserCard from '../usercard';
 import MsgDisplay from './MsgDisplay';
 import Icons from '../emoji';
-import { addMessage } from '../../redux/actions/messageAction'
+import { addMessage, getMessages } from '../../redux/actions/messageAction'
 import LoadIcon from '../../images/loading.gif';
 
 const RightSide = () => {
@@ -76,6 +76,15 @@ const RightSide = () => {
             setUser(newUser)
         }
     },[message.users, id])
+
+    useEffect(() => {
+        if(id){
+            const getMessagesData = async () => {
+                await dispatch(getMessages({auth, id}))
+            }
+            getMessagesData()
+        }
+    },[id, dispatch, auth])
 
     return (
         <React.Fragment>

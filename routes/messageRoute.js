@@ -2,11 +2,11 @@ const router = require('express').Router()
 const messageController = require('../controllers/messageController')
 const auth = require('../middleware/auth')
 
-router.post('/message', auth, messageCtrl.createMessage)
+router.post('/message', auth, messageController.createMessage)
 
-// router.get('/conversations', auth, messageCtrl.getConversations)
+router.get('/conversations', auth, messageController.getConversations)
 
-// router.get('/message/:id', auth, messageCtrl.getMessages)
+router.get('/message/:id', auth, messageController.getMessages)
 
 // router.delete('/message/:id', auth, messageCtrl.deleteMessages)
 

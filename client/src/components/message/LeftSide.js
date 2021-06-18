@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDataAPI } from '../../utils/fetchData'
 import { GLOBALTYPES } from '../../redux/actions/globalType'
 import { useHistory, useParams } from 'react-router-dom'
 import UserCard from '../usercard';
-import {  MESS_TYPES } from '../../redux/actions/messageAction'
+import {  MESS_TYPES, getConversations } from '../../redux/actions/messageAction'
 
 
 const LeftSide = () => {
@@ -42,6 +42,11 @@ const LeftSide = () => {
         if(id === user._id) return 'active';
         return ''
     }
+
+    useEffect(() => {
+        if(message.firstLoad) return;
+        dispatch(getConversations({auth}))
+    },[dispatch, auth, message.firstLoad])
 
     return (
         <React.Fragment>

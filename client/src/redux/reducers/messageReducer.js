@@ -32,18 +32,19 @@ const messageReducer = (state = initialState, action) => {
                     : user
                 )
             };
-        // case MESS_TYPES.GET_CONVERSATIONS:
-        //     return {
-        //         ...state,
-        //         users: action.payload.newArr,
-        //         resultUsers: action.payload.result,
-        //         firstLoad: true
-        //     };
-        // case MESS_TYPES.GET_MESSAGES:
-        //     return {
-        //         ...state,
-        //         data: [...state.data, action.payload]
-        //     };
+        case MESS_TYPES.GET_CONVERSATIONS:
+            return {
+                ...state,
+                users: action.payload.newArr,
+                resultUsers: action.payload.result,
+                firstLoad: true
+            };
+        case MESS_TYPES.GET_MESSAGES:
+            return {
+                ...state,
+                data: action.payload.messages.reverse(),
+                resultData: action.payload.result
+            };
         // case MESS_TYPES.UPDATE_MESSAGES:
         //     return {
         //         ...state,
