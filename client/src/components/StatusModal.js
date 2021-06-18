@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {GLOBALTYPES} from '../redux/actions/globalType';
 import {createPost, updatePost} from '../redux/actions/postAction';
+import Icons from './emoji';
 
 const StatusModal = () => {
     const {auth,theme, status, socket} = useSelector(state=>state);
@@ -20,8 +21,8 @@ const StatusModal = () => {
 
         files.forEach(file => {
             if(!file) return err = "File does not Exits";
-            if(file.type !== 'image/png' && file.type !== 'image/jpeg'){
-                return err = "File format different then jpeg/png";
+            if(file.size > 1024 * 1024 * 10){
+                return err = "File largest could be 10mb";
             }
             return newImages.push(file);
         })
@@ -94,6 +95,14 @@ const StatusModal = () => {
         }
     },[status]);
 
+    const imageShow = (src) => {
+        return <img src={src}  alt="images" className="img img-responsive img-thumbnail" style={{filter: theme ? 'invert(1)':'invert(0)'}}/>
+    }
+
+    const videoShow = (src) => {
+        return <video controls src={src}  alt="images" className="img img-responsive img-thumbnail" style={{filter: theme ? 'invert(1)':'invert(0)'}}/>
+    }
+
     return (
         <div className="status_modal">
             <form onSubmit={handleSubmit}>
@@ -107,6 +116,10 @@ const StatusModal = () => {
                 </div>
                 <div className="status_body">
                     <textarea name="content" placeholder={`${auth.user.username}, what are you thinking`} onChange={e => setContent(e.target.value)} value={content}/>
+                    <div className="d-flex">
+                        <div className="flex-fill"></div>
+                        <Icons setContent={setContent} content={content}/>
+                    </div>
                     <div className="input_images">
                         {
                             stream ? 
@@ -116,7 +129,7 @@ const StatusModal = () => {
                                 <i className="fas fa-camera" onClick={handleStream}/>
                                 <div className="file_upload">
                                     <i className="fas fa-image"></i>
-                                    <input type="file" name="file" id="file" multiple accept="image/*" onChange={handleChangeImages}/>
+                                    <input type="file" name="file" id="file" multiple accept="image/*,video/*" onChange={handleChangeImages}/>
                                 </div>
                             </>
                         }
@@ -135,7 +148,19 @@ const StatusModal = () => {
                         {
                             images.map((img,ind) => (
                                 <div key={ind} id="file_img">
-                                    <img src={img.camera ? img.camera : img.url? img.url: URL.createObjectURL(img)}  alt="images" className="img img-responsive img-thumbnail" style={{filter: theme ? 'invert(1)':'invert(0)'}}/>
+                                    {
+                                        img.camera ? imageShow(img.camera)
+                                                   : img.url ? <>
+                                                                    {
+                                                                        img.url.match(/video/i) ? videoShow(img.url) : imageShow(img.url)
+                                                                    }
+                                                               </>
+                                                              : <>
+                                                                    {
+                                                                        img.type.match(/video/i) ? videoShow(URL.createObjectURL(img)) : imageShow(URL.createObjectURL(img))
+                                                                    }
+                                                                </>
+                                    }
                                     <span onClick={() => deleteImages(ind)}>&times;</span>
                                 </div>
                             ))
