@@ -23,6 +23,7 @@ app.use('/socialapi', require('./routes/userRoute'));
 app.use('/socialapi', require('./routes/postRoute'));
 app.use('/socialapi', require('./routes/commentRouter'));
 app.use('/socialapi', require('./routes/notifyRoute'));
+app.use('/socialapi', require('./routes/messageRoute'));
 
 const URI = process.env.MONGO_URL;
 mongoose.connect(URI, {
