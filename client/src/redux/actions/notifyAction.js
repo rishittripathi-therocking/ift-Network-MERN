@@ -28,7 +28,7 @@ export const createNotify = ({msg, auth, socket}) => async(dispatch) => {
 
 export const removeNotify = ({msg, auth, socket}) => async(dispatch) => {
     try {
-        const res = await deleteDataAPI(`notify/${msg.id}?url=${msg.url}`, auth.token);
+        await deleteDataAPI(`notify/${msg.id}?url=${msg.url}`, auth.token);
         //console.log(res);
         socket.emit('removeNotify', msg);
     } catch(err) {

@@ -46,7 +46,6 @@ function App() {
         alert("This browser does not support desktop notification");
       }
       else if (Notification.permission === "granted") {
-        console.log("yes");
       }
       else if (Notification.permission !== "denied") {
         Notification.requestPermission().then(function (permission) {

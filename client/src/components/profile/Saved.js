@@ -6,10 +6,10 @@ import { useSelector} from 'react-redux';
 
 const Posts = ({auth, dispatch}) => {
     const [savedPosts, setSavedPosts] = useState([]);
-    const [load,setLoad]=useState(false);
+    // const [load,setLoad]=useState(false);
     const {theme} = useSelector(state => state);
     useEffect(()=>{
-        setLoad(true);
+        // setLoad(true);
         getDataAPI('getSavePosts', auth.token)
         .then(res => {
             setSavedPosts(res.data.savePosts);

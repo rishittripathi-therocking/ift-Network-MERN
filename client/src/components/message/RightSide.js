@@ -108,7 +108,7 @@ const RightSide = () => {
             }
         }
             getMessagesData()
-    },[id, dispatch, auth])
+    },[id, dispatch, auth, message.data])
 
     //Load More 
     useEffect(() => {
