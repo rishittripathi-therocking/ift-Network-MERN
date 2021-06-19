@@ -97,7 +97,12 @@ const CallModal = () => {
     const playStream = (tag, stream) => {
         let video = tag;
         video.srcObject = stream;
-        video.play()
+        video.play();
+        // var audio = document.querySelector('audio');
+        // audio.src = window.URL.createObjectURL(stream);
+        // audio.onloadedmetadata = function(e){
+        //     audio.play();
+        // }
     }
 
     // Answer Call
