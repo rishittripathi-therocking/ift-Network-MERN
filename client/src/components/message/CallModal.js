@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import Avatar from '../Avatar';
 import { GLOBALTYPES } from '../../redux/actions/globalType';
-//import { addMessage } from '../../redux/actions/messageAction';
-//import RingRing from '../../audio/ringring.mp3';
+import { addMessage } from '../../redux/actions/messageAction';
+import RingRing from '../../audio/ringring.mp3';
 
 const CallModal = () => {
     const { call, auth, peer, socket, theme } = useSelector(state => state);
@@ -17,17 +17,31 @@ const CallModal = () => {
     const youVideo = useRef();
     const otherVideo = useRef();
     const [tracks, setTracks] = useState(null);
-    // const [newCall, setNewCall] = useState(null);
+    const [newCall, setNewCall] = useState(null);
 
 
     // End Call
+    const addCallMessage = useCallback((call, times, disconnect) => {
+        if(call.recipient !== auth.user._id || disconnect){
+            const msg = {
+                sender: call.sender,
+                recipient: call.recipient,
+                text: '', 
+                media: [],
+                call: {video: call.video, times},
+                createdAt: new Date().toISOString()
+            }
+            dispatch(addMessage({msg, auth, socket}))
+        }
+    },[auth, dispatch, socket])
+
     const handleEndCall = () => {
         tracks && tracks.forEach(track => track.stop())
         // if(newCall) newCall.close()
-        // let times = answer ? total : 0
-        socket.emit('endCall', call)
+        let times = answer ? total : 0
+        socket.emit('endCall', {...call,times})
         
-        // addCallMessage(call, times)
+        addCallMessage(call, times)
         dispatch({type: GLOBALTYPES.CALL, payload: null })
     }
 
