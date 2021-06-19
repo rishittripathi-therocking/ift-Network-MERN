@@ -122,6 +122,26 @@ const CallModal = () => {
         return () => peer.removeListener('call')
     },[peer, call.video])
 
+    // Disconnect
+
+    useEffect(() => {
+        socket.on('callerDisconnect', () => {
+            tracks && tracks.forEach(track => track.stop())
+            // if(newCall) newCall.close()
+            // let times = answer ? total : 0
+            // addCallMessage(call, times, true)
+
+            dispatch({type: GLOBALTYPES.CALL, payload: null })
+
+            dispatch({
+                type: GLOBALTYPES.ALERT, 
+                payload: {error: `The ${call.username} disconnect`} 
+            })
+        })
+
+        return () => socket.off('callerDisconnect')
+    },[socket, tracks, dispatch, call])
+
     
 
     return (
