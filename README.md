@@ -11,4 +11,4 @@
 # npm start
 
 ## Deployed on
-### https://ift-network-rishit.heroku.com
+### https://ift-network-rishit.herokuapp.com
