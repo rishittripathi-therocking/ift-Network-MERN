@@ -105,7 +105,7 @@ const Header = () => {
                                 </span>
                                 <span className="notify_length">{notify.data.length}</span>
                             </span>
-                            <div className="dropdown-menu " aria-labelledby="navbarDropdown" style={{transform: 'translateX(50px)'}}>
+                            <div className="dropdown-menu " aria-labelledby="navbarDropdown" style={{transform: 'translateX(70px)'}}>
                                 <NotifyModal />
                             </div>
                         </li>
