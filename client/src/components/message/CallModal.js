@@ -222,12 +222,12 @@ const CallModal = () => {
                 }
                 
                 <div className="call_menu">
-                    <span className="material-icons text-danger" onClick={handleEndCall}>call_end</span>
+                    <button className="material-icons text-danger" onClick={handleEndCall}>call_end</button>
                     {
                         (call.recipient === auth.user._id && !answer) && 
                         <React.Fragment>
                             {
-                                call.video ? <span className="material-icons text-success" onClick={handleAnswer} > videocam </span> : <span className="material-icons text-success" onClick={handleAnswer}> call </span>
+                                call.video ? <button className="material-icons text-success" onClick={handleAnswer} > videocam </button> : <button className="material-icons text-success" onClick={handleAnswer}> call </button>
                             }
                         </React.Fragment>
                     }

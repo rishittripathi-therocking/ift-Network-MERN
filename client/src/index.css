@@ -9,11 +9,11 @@
   -moz-osx-font-smoothing: grayscale;
   
 }
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
   display: none;
 }
 
-body {
+* {
   -ms-overflow-style: none; 
   scrollbar-width: none; 
 }
@@ -135,7 +135,10 @@ code {
 
 
 
-@media(max-width: 768px){
+@media(max-width: 766px){
+  .header .navbar .logo {
+    display: none;
+  }
   .header .menu{
     position: absolute;
     width: 100%;
@@ -180,6 +183,14 @@ code {
   }
   .message {
     height: calc(100vh - 160px)
+  }
+
+  .right_mess {
+    display: none;
+  }
+
+  .status {
+    padding: 20px 10px;
   }
 
 }

@@ -74,6 +74,7 @@
     align-items: center;
 }
 
+
 /* Button 2g */
 .button-2g {
     border-radius: 45px;
@@ -143,6 +144,10 @@
     width: 50px;
     padding-left: 13px;
     padding-bottom: 5px;
+}
+
+.status_body .dropdown-menu{
+    transform: translate3d(-153px,-190px,0px) !important;
 }
 
 
