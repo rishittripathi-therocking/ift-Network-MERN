@@ -37,7 +37,7 @@ const CallModal = () => {
 
     const handleEndCall = () => {
         tracks && tracks.forEach(track => track.stop())
-        // if(newCall) newCall.close()
+        if(newCall) newCall.close()
         let times = answer ? total : 0
         socket.emit('endCall', {...call,times})
         
@@ -50,24 +50,26 @@ const CallModal = () => {
             setTotal(0)
         } else {
             const timer = setTimeout(() => {
-                socket.emit('endCall', call)
+                socket.emit('endCall', {...call, times: 0})
+                addCallMessage(call, 0)
+
                 dispatch({type: GLOBALTYPES.CALL, payload: null})
             },15000)
             return () => clearTimeout(timer)
         }
         
-    },[dispatch, answer, call, socket])
+    },[dispatch, answer, call, socket, addCallMessage])
 
     useEffect(() => {
         socket.on('endCallToClient', data => {
             tracks && tracks.forEach(track => track.stop())
-            // if(newCall) newCall.close()
-            // addCallMessage(data, data.times)
+            if(newCall) newCall.close()
+            addCallMessage(data, data.times)
             dispatch({ type: GLOBALTYPES.CALL, payload: null })
         })
 
         return () => socket.off('endCallToClient')
-    },[socket, dispatch, tracks])
+    },[socket, dispatch, tracks, addCallMessage, newCall])
 
     // Set Time
     useEffect(() => {
@@ -110,7 +112,7 @@ const CallModal = () => {
                 playStream(otherVideo.current, remoteStream)
             });
             setAnswer(true)
-            // setNewCall(newCall)
+            setNewCall(newCall)
         })
     }
 
@@ -130,7 +132,7 @@ const CallModal = () => {
                     }
                 });
                 setAnswer(true) 
-                // setNewCall(newCall)
+                setNewCall(newCall)
             })
         })
         return () => peer.removeListener('call')
@@ -141,9 +143,9 @@ const CallModal = () => {
     useEffect(() => {
         socket.on('callerDisconnect', () => {
             tracks && tracks.forEach(track => track.stop())
-            // if(newCall) newCall.close()
-            // let times = answer ? total : 0
-            // addCallMessage(call, times, true)
+            if(newCall) newCall.close()
+            let times = answer ? total : 0
+            addCallMessage(call, times, true)
 
             dispatch({type: GLOBALTYPES.CALL, payload: null })
 
@@ -154,9 +156,28 @@ const CallModal = () => {
         })
 
         return () => socket.off('callerDisconnect')
-    },[socket, tracks, dispatch, call])
+    },[socket, tracks, dispatch, call, addCallMessage, answer, total, newCall])
 
-    
+    // Play - Pause Audio
+    const playAudio = (newAudio) => {
+        newAudio.play()
+    }
+
+    const pauseAudio = (newAudio) => {
+        newAudio.pause()
+        newAudio.currentTime = 0
+    }
+
+    useEffect(() => {
+        let newAudio = new Audio(RingRing)
+        if(answer){
+            pauseAudio(newAudio)
+        }else{
+            playAudio(newAudio)
+        }
+
+        return () => pauseAudio(newAudio)
+    },[answer])
 
     return (
         <div className="call_modal">
