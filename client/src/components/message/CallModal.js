@@ -23,6 +23,7 @@ const CallModal = () => {
     // End Call
     const handleEndCall = () => {
         dispatch({type: GLOBALTYPES.CALL, payload: null})
+        socket.emit('endCall',call);
     }
 
     useEffect(()=> {
@@ -36,6 +37,17 @@ const CallModal = () => {
         }
         
     },[dispatch, answer])
+
+    useEffect(() => {
+        socket.on('endCallToClient', data => {
+            // tracks && tracks.forEach(track => track.stop())
+            // if(newCall) newCall.close()
+            // addCallMessage(data, data.times)
+            dispatch({ type: GLOBALTYPES.CALL, payload: null })
+        })
+
+        return () => socket.off('endCallToClient')
+    },[socket, dispatch])
 
     // Set Time
     useEffect(() => {
@@ -68,11 +80,24 @@ const CallModal = () => {
                     <Avatar src={call.avatar} size="supper-avatar" />
                     <h4>{call.username}</h4>
                     <h6>{call.fullname}</h6>
-                    <div>
-                        {
-                            call.video ? <span>Calling video...</span> : <span>Calling Audio...</span>
-                        }
-                    </div>
+                    {
+                        answer 
+                        ? 
+                            <div>
+                                <span>{ hours.toString().length < 2 ? '0' + hours : hours }</span>
+                                <span>:</span>
+                                <span>{ mins.toString().length < 2 ? '0' + mins : mins }</span>
+                                <span>:</span>
+                                <span>{ second.toString().length < 2 ? '0' + second : second }</span>
+                            </div>
+                        :
+                            <div>
+                                {
+                                    call.video ? <span>Calling video...</span> : <span>Calling Audio...</span>
+                                }
+                            </div>
+                    }
+                    
                 </div>
 
                 <div className="timer">
@@ -84,11 +109,15 @@ const CallModal = () => {
                 </div>
                 <div className="call_menu">
                     <span className="material-icons text-danger" onClick={handleEndCall}>call_end</span>
-                    <React.Fragment>
-                        {
-                            call.video ? <span className="material-icons text-success" onClick={handleAnswer} > videocam </span> : <span className="material-icons text-success" onClick={handleAnswer}> call </span>
-                        }
-                    </React.Fragment>
+                    {
+                        (call.recipient === auth.user._id && !answer) && 
+                        <React.Fragment>
+                            {
+                                call.video ? <span className="material-icons text-success" onClick={handleAnswer} > videocam </span> : <span className="material-icons text-success" onClick={handleAnswer}> call </span>
+                            }
+                        </React.Fragment>
+                    }
+                    
                 </div>
             </div>
         </div>
