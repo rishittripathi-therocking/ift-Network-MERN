@@ -19,6 +19,7 @@ import io from 'socket.io-client';
 import { GLOBALTYPES } from './redux/actions/globalType';
 import SocketClient from './SocketClient';
 import CallModal from './components/message/CallModal';
+import Peer from 'peerjs';
 
 
 toast.configure();
@@ -54,7 +55,12 @@ function App() {
       }
   },[])
   
-
+  useEffect(() => {
+    const newPeer = new Peer(undefined, {
+      host: '/', port:'3001'
+    })
+    dispatch({type: GLOBALTYPES.PEER, payload: newPeer});
+  },[dispatch])
   
 
   return (

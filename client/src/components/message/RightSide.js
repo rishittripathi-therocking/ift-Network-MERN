@@ -11,7 +11,7 @@ import { addMessage, getMessages, loadMoreMessages, deleteConversation } from '.
 import LoadIcon from '../../images/loading.gif';
 
 const RightSide = () => {
-    const {auth,message,theme, socket} = useSelector(state => state);
+    const {auth,message,theme, socket, peer} = useSelector(state => state);
     const dispatch = useDispatch();
     const { id } = useParams();
     const [user, setUser] = useState([]);
@@ -161,9 +161,9 @@ const RightSide = () => {
             avatar, username, fullname, video
         }
 
-        // if(peer.open) msg.peerId = peer._id
+        if(peer.open) msg.peerId = peer._id
 
-        // socket.emit('callUser', msg)
+        socket.emit('callUser', msg)
     }
 
     const handleAudioCall = () => {
