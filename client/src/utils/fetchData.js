@@ -10,7 +10,7 @@ export const getDataAPI = async(url, token) => {
 }
 
 export const postDataAPI = async(url,post, token) => {
-    const res = await axios.post(`/socialapi/${url}`,post,{
+    const res = await axios.post(`https://ift-network-rishit-tripathi.onrender.com/socialapi/${url}`,post,{
         headers: {Authorization: token}
     })
     return res;
