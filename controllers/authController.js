@@ -43,7 +43,7 @@ const authController ={
                 httpOnly: true,
                 maxAge: 30*24*60*60*1000,
                 sameSite: "none",
-                secure: "false"
+                secure: true
             });
 
             await newUser.save();
@@ -79,7 +79,7 @@ const authController ={
                 httpOnly: true,
                 maxAge: 30*24*60*60*1000,
                 sameSite: "none",
-                secure: "false"
+                secure: true
             });
             res.json({
                 msg: 'User Logged in Succesfully',
