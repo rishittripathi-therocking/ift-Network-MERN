@@ -41,7 +41,9 @@ const authController ={
             
             res.cookie('refreshtoken',refresh_token,{
                 httpOnly: true,
-                maxAge: 30*24*60*60*1000
+                maxAge: 30*24*60*60*1000,
+                sameSite: "none",
+                secure: "false"
             });
 
             await newUser.save();
@@ -76,6 +78,8 @@ const authController ={
             res.cookie('refreshtoken',refresh_token,{
                 httpOnly: true,
                 maxAge: 30*24*60*60*1000,
+                sameSite: "none",
+                secure: "false"
             });
             res.json({
                 msg: 'User Logged in Succesfully',
