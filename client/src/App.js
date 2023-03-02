@@ -96,4 +96,6 @@ function App() {
   );
 }
 
+//"proxy": "http://localhost:5000",
+
 export default App;
