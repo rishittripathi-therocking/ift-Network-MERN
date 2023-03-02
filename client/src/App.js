@@ -27,7 +27,7 @@ function App() {
   const {auth, status,modal, call} = useSelector(state => state);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(refreshToken());
+    dispatch(refreshToken(auth?.token));
     const socket = io();
     dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
     return ()=> socket.close()
