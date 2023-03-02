@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const getDataAPI = async(url, token) => {
     
-    const res = await axios.get(`/socialapi/${url}`,{
+    const res = await axios.get(`https://ift-network-rishit-tripathi.onrender.com/socialapi/${url}`,{
         headers: {Authorization: token}
     })
     return res;
