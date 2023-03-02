@@ -9,7 +9,10 @@ const { ExpressPeerServer } = require('peer');
 const app = express();
 app.use(express.json());
 app.use(cookieparser());
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: "https://ift-network-rishit-tripathi.netlify.app",
+}));
 
 //Socket
 const http = require('http').createServer(app)
